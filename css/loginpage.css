@@ -1,0 +1,35 @@
+/* 
+    Document   : loginpage
+    Created on : 13-ene-2012, 16:02:19
+    Author     : Aitor
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+#login_page {
+    background-image: url(../images/fondo.gif);
+    height: 300px;
+    width: 100%;
+    text-align: center;
+}
+
+#login_form {
+    padding-top: 100px;
+}
+
+#submit {
+    width: 80px;
+    margin-top: 10px;
+}
+
+#user {
+    /*border: solid 1px #000000;*/
+    box-shadow: 5px 5px 5px #888888;
+    height: 20px;
+}
+
+#password {
+    /*border: solid 1px #000000;*/
+    box-shadow: 5px 5px 5px #888888;
+    height: 20px;
+}

@@ -1,0 +1,44 @@
+/* 
+    Document   : overview
+    Created on : 13-ene-2012, 18:01:31
+    Author     : Aitor
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+button.button {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    /* Definition of the transition when the button is clicked
+    transition-property: background-image;
+    transition-duration: 2s;
+    transition-timing-function: linear;
+    -moz-transition-property: background-image;
+    -moz-transition-duration: 2s;
+    -moz-transition-timing-function: linear;
+    -webkit-transition-property: background-image;
+    -webkit-transition-duration: 2s;
+    -webkit-transition-timing-function: linear;
+    */
+}
+/*
+button:focus {
+    This is the transition target style
+    background-image: none;
+    background-color: #70a2e3;
+}
+*/
+.button[name="overview"] {
+    background-image: none;
+    background-color: #70a2e3;
+}
+
+.wardrobe {
+    width: 100px; 
+    height: 80px; 
+    border: 1px solid #AAAAAA;
+    text-align: center;
+    margin-bottom: 5px;
+    
+}

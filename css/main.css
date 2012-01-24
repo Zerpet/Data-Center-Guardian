@@ -1,0 +1,85 @@
+/* 
+    Document   : main
+    Created on : 08-sep-2011, 16:56:38
+    Author     : Aitor
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 800px;
+    font-size: 0.7em;
+    font-family: Arial, sans-serif;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1 {
+    font-size: 2.7em;
+    color: #104173;
+    text-align: center;
+}
+
+.leftmenu {
+    width: 18%;
+    float: left;
+}
+
+.content {
+    margin-left: 22%;
+    margin-top: 10px;
+}
+
+img {
+    border: 0;  
+}
+
+ul {
+    list-style: none;
+}
+
+.button {
+    /*background-image: url(../images/button_background.png);*/
+    /***Gradient***/
+    background-image: linear-gradient(bottom, #E8F2FF 21%, #70A2E3 61%, #70A2E3 81%);
+    background-image: -o-linear-gradient(bottom, #E8F2FF 21%, #70A2E3 61%, #70A2E3 81%);
+    background-image: -moz-linear-gradient(bottom, #E8F2FF 21%, #70A2E3 61%, #70A2E3 81%);
+    background-image: -webkit-linear-gradient(bottom, #E8F2FF 21%, #70A2E3 61%, #70A2E3 81%);
+    background-image: -ms-linear-gradient(bottom, #E8F2FF 21%, #70A2E3 61%, #70A2E3 81%);
+    background-image: -webkit-gradient(
+            linear,
+            left bottom,
+            left top,
+            color-stop(0.21, #E8F2FF),
+            color-stop(0.61, #70A2E3),
+            color-stop(0.81, #70A2E3)
+    );
+    
+    /* Declare border first and then make rounded */
+    border: solid 1px #cccccc;
+    border-radius: 10px;
+    /* Included for compatibility */
+    -moz-border-raidus:10px;
+    -webkit-border-radius:10px;
+    
+    box-shadow: 5px 5px 5px #888888;
+    height: 26px;
+}
+/*
+button::-moz-focus-inner {
+  border: 0;
+}
+*/
+.subheader {
+    color: #8B9EE3;
+    font-family: Arial;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: bold;
+    border-bottom: 1px solid #000000;
+}
