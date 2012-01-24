@@ -67,13 +67,13 @@
                 </div>
             </div>
             
-            <canvas id="myCanvas" width="420" heigth="522">Hola Mundo!!</canvas>
-            <script type="text/javascript">
-                var c=document.getElementById("myCanvas");
-                var ctx=c.getContext("2d");
-                ctx.rect(60, 150, 50, 50);
-                ctx.stroke();
-            </script>
+                <canvas id="myCanvas" width="420" height="522">Hola Mundo!!</canvas>
+                <script type="text/javascript">
+                    var c=document.getElementById("myCanvas");
+                    var ctx=c.getContext("2d");
+                    ctx.rect(60, 150, 50, 50);
+                    ctx.stroke();
+                </script>
             
         </div>
         <br style="clear: both;" />
