@@ -4,11 +4,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Overview</title>
         <script type="text/javascript" src="js/jquery-1.6.3.js"></script>
+        <script type="text/javascript" src="js/canvas_boxes.js"></script>
         <link rel="stylesheet" type="text/css" href="css/main.css" />
         <link rel="stylesheet" type="text/css" href="css/header_footer.css" />
         <link rel="stylesheet" type="text/css" href="css/overview.css" />
     </head>
-    <body>
+    <body onload="drawBoxes(); drawLines();">
         <?php include("header.php"); ?>
         <div class="subheader">
             <p>Home</p>
@@ -68,51 +69,7 @@
             </div>
             
                 <canvas id="boxes" width="420" height="522">Your browser does not support canvas element</canvas>
-                <script type="text/javascript">
-                    var c=document.getElementById("boxes");
-                    var ctx=c.getContext("2d");
-                    var boxX = 54;
-                    var boxY = 145;
-                    
-                    //Drawing first horizontal line of boxes
-                    ctx.fillStyle = "#CCCCCC";
-                    ctx.rect(boxX, boxY, 40, 40);
-                    ctx.fill();
-                    ctx.stroke();
-                    ctx.closePath();
-                    
-                    ctx.beginPath();
-                    var i;
-                    for(i = 1; i < 5; i++) {
-                        ctx.rect(boxX + i*68, boxY, 40, 40);
-                    }
-                    ctx.fillStyle = "#000000"
-                    ctx.fill();
-                    ctx.stroke();
-                    ctx.closePath();
-                    
-                    //Drawing left vertical line of boxes
-                    ctx.beginPath();
-                    var padding = 40;
-                    for(i = 0; i < 3; i++) {
-                        ctx.rect(boxX - 20, boxY + 40 + padding + i*54, 40, 40);
-                    }
-                    ctx.fillStyle= "#CCCCCC";
-                    ctx.fill();
-                    ctx.stroke();
-                    ctx.closePath();
-                    
-                    //Drawing right vertical line of boxes
-                    ctx.beginPath();
-                    for(i = 0; i < 3; i++) {
-                        ctx.rect(boxX + 68*4+14, boxY + 40 + padding + i*54, 40, 40);
-                    }
-                    ctx.fillStyle= "#FFFFFF";
-                    ctx.fill();
-                    ctx.stroke();
-                    ctx.closePath();
-                    
-                </script>
+                
             
         </div>
         <br style="clear: both;" />
