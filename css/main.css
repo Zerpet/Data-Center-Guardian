@@ -70,6 +70,23 @@ ul {
     box-shadow: 5px 5px 5px #888888;
     height: 26px;
 }
+
+button.button {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    /* Definition of the transition when the button is clicked
+    transition-property: background-image;
+    transition-duration: 2s;
+    transition-timing-function: linear;
+    -moz-transition-property: background-image;
+    -moz-transition-duration: 2s;
+    -moz-transition-timing-function: linear;
+    -webkit-transition-property: background-image;
+    -webkit-transition-duration: 2s;
+    -webkit-transition-timing-function: linear;
+    */
+}
 /*
 button::-moz-focus-inner {
   border: 0;

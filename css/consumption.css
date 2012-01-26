@@ -1,0 +1,29 @@
+/* 
+    Document   : consumption
+    Created on : 26-ene-2012, 12:12:46
+    Author     : Aitor
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.phase {
+    border: 1px solid #AAAAAA;
+    text-align: justify;
+    border-radius: 10px;
+    /* Included for compatibility */
+    -moz-border-raidus:10px;
+    -webkit-border-radius:10px;
+    
+    box-shadow: 5px 5px 5px #888888;
+    
+    padding-left: 25px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 25px;
+}
+/*
+ol {
+    position: relative;
+    left: 35%;
+}
+*/

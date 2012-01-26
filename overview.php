@@ -16,7 +16,7 @@
         </div>
         <?php include("leftmenu.php"); ?>
         <div class="content">
-            <div id="left" style="float: left;">
+            <div style="float: left;">
                 <!-- Left side of wardrobes -->
                 <div class="wardrobe">
                     <br/>Común<br/>
@@ -39,14 +39,14 @@
                     3 -> 129<br/>
                     10 -> 154<br/>
                 </div>
-                <div class="wardrobe" style="background-color: #999999">
+                <div class="disabled_wardrobe">
                 <!-- Git working now -->
                 </div>
-                <div class="wardrobe" style="background-color: #999999">
+                <div class="disabled_wardrobe">
                     <br/>1 -> ___<br/>
                 </div>
             </div>
-            <div id="right" style="float:right;">
+            <div style="float:right;">
                 <!-- Right side of wardrobes position: relative; left: 521px; top: -175px-->
                 <div class="wardrobe">
                     <br/>Arcos A<br/>
@@ -63,7 +63,7 @@
                     <br/>Evannai<br/>
                     11 -> 164<br/>
                 </div>
-                <div class="wardrobe" style="background-color: #999999">
+                <div class="disabled_wardrobe">
                     <br/>
                 </div>
             </div>

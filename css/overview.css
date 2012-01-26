@@ -5,23 +5,6 @@
     Description:
         Purpose of the stylesheet follows.
 */
-
-button.button {
-    width: 100%;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    /* Definition of the transition when the button is clicked
-    transition-property: background-image;
-    transition-duration: 2s;
-    transition-timing-function: linear;
-    -moz-transition-property: background-image;
-    -moz-transition-duration: 2s;
-    -moz-transition-timing-function: linear;
-    -webkit-transition-property: background-image;
-    -webkit-transition-duration: 2s;
-    -webkit-transition-timing-function: linear;
-    */
-}
 /*
 button:focus {
     This is the transition target style
@@ -41,4 +24,13 @@ button:focus {
     text-align: center;
     margin-bottom: 5px;
     
+}
+
+.disabled_wardrobe {
+    width: 100px; 
+    height: 80px; 
+    border: 1px solid #AAAAAA;
+    text-align: center;
+    margin-bottom: 5px;
+    background-color: #999999;
 }
