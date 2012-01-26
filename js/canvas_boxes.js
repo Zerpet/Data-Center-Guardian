@@ -88,7 +88,7 @@ function drawLines() {
     var hmid = boxX + boxWidth/2;
     var vmid = boxY + boxHeight/2;
     
-    var warWidth = 100;
+    //var warWidth = 100;
     var warHeight = 80;
     var warMargin = 5;
     
@@ -117,9 +117,20 @@ function drawLines() {
     ctx.moveTo(420, warHeight/2);
     ctx.lineTo(hmid + boxWidth*3 + boxMargin*3, boxY);
     
-    //TODO fix this two lines
     ctx.moveTo(420, warHeight*1.5 + warMargin*2);
-    ctx.lineTo(hmid + boxWidth*3 + boxMargin*3, boxY);
+    ctx.lineTo(hmid + boxWidth*5 + boxMargin*4 - 6,/* -6 to adjust cause was not fitting well*/
+                    vmid+padding+boxHeight);
+    
+    ctx.moveTo(420, warHeight*2.5 + warMargin*3);
+    ctx.lineTo(hmid + boxWidth*4.5 + boxMargin*4, vmid);
+    
+    ctx.moveTo(420, warHeight*3.5 + warMargin*4);
+    ctx.lineTo(hmid + boxWidth*5 + boxMargin*4 - 6, vmid + padding + boxHeight*2 + boxMargin);
+    
+    ctx.moveTo(420, warHeight*4.5 + warMargin*5);
+    ctx.lineTo(hmid + boxWidth*5 + boxMargin*4 - 6, vmid + padding + boxHeight*3 + boxMargin*2);
+    
+    
     
     ctx.stroke();
     ctx.closePath();
