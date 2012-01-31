@@ -45,6 +45,9 @@
                 <div class="disabled_wardrobe">
                     <br/>1 -> ___<br/>
                 </div>
+                <div class="wardrobe">
+                    <br/>Lab<br/>
+                </div>
             </div>
             <div style="float:right;">
                 <!-- Right side of wardrobes position: relative; left: 521px; top: -175px-->

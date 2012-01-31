@@ -17,7 +17,7 @@
                 <li id="line" onclick="showHide('line')"></li>
             </ul>-->
             <div id="login_form">
-                <form action="overview.php" name="login_form" method="post">
+                <form action="logic/check_login.php" name="login_form" method="post">
                     Username<br/>
                     <input id="user" type="text" name="username" maxlength="255"/>
                     <br/><br/>
@@ -27,6 +27,11 @@
                 </form>
             </div>
         </div>
+        <?php 
+            if(isset($_GET["error"]) AND $_GET["error"] == 1)
+                echo "<h1>Epic Fail!</h1>"
+        ?>
+        
         <?php include("footer.php") ?>
     </body>
 </html>
