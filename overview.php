@@ -13,7 +13,7 @@
     <body onload="drawBoxes(); drawLines();">
         <?php include("includes/header.php"); ?>
         <div class="subheader">
-            <p>Home</p> <?php echo "Hello " . $_SESSION['user']; ?>
+            <p>Home</p>
         </div>
         <?php include("includes/leftmenu.php"); ?>
         <div class="content">

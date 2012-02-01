@@ -1,10 +1,3 @@
-/* 
-    Document   : loginpage
-    Created on : 13-ene-2012, 16:02:19
-    Author     : Aitor
-    Description:
-        Purpose of the stylesheet follows.
-*/
 
 #login_page {
     background-image: url(../images/fondo.gif);
@@ -57,7 +50,7 @@
     -webkit-border-radius: 10px;
     box-shadow: 5px 5px 5px #888888;
     
-    margin-bottom: 25px;
+    margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
 }

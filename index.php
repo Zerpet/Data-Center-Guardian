@@ -26,14 +26,16 @@
                     <input id="submit" class="button" type="submit" name="submit" value="Login"/>
                 </form>
             </div>
+            <?php 
+                if(isset($_GET["error"]) AND $_GET["error"] == 1) {
+            ?>
+                    <div id="login_error">
+                        User or password incorrect
+                    </div>
+            <?php } ?>
         </div>
+        
         <?php 
-            if(isset($_GET["error"]) AND $_GET["error"] == 1) {
-        ?>
-                <div id="login_error">
-                    User or password incorrect
-                </div>
-        <?php    }
             include("includes/footer.php"); 
         ?>
     </body>
