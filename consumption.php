@@ -1,3 +1,4 @@
+<?php require("./logic/check_if_logged.php"); ?>
 <!-- PEND!!! -->
 <!DOCTYPE html>
 <html>
@@ -10,11 +11,11 @@
         <link rel="stylesheet" type="text/css" href="css/consumption.css" />
     </head>
     <body>
-        <?php include("header.php"); ?>
+        <?php include("includes/header.php"); ?>
         <div class="subheader">
             <p>Consumption</p>
         </div>
-        <?php include("leftmenu.php"); ?>
+        <?php include("includes/leftmenu.php"); ?>
         <div class="content" style="height: 200px;">
             <div style="float: left;">
                 <div class="phase" id="phaseR">
@@ -33,6 +34,6 @@
         </div>
         
         
-        <?php include("footer.php"); ?>
+        <?php include("includes/footer.php"); ?>
     </body>
 </html>

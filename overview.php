@@ -1,3 +1,4 @@
+<?php require("./logic/check_if_logged.php"); ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,11 +11,11 @@
         <link rel="stylesheet" type="text/css" href="css/overview.css" />
     </head>
     <body onload="drawBoxes(); drawLines();">
-        <?php include("header.php"); ?>
+        <?php include("includes/header.php"); ?>
         <div class="subheader">
-            <p>Home</p>
+            <p>Home</p> <?php echo "Hello " . $_SESSION['user']; ?>
         </div>
-        <?php include("leftmenu.php"); ?>
+        <?php include("includes/leftmenu.php"); ?>
         <div class="content">
             <div style="float: left;">
                 <!-- Left side of wardrobes -->
@@ -76,6 +77,6 @@
             
         </div>
         <br style="clear: both;" />
-        <?php include("footer.php"); ?>
+        <?php include("includes/footer.php"); ?>
     </body>
 </html>

@@ -10,8 +10,15 @@
     $db_name = "test"; // Database name
     $tbl_name = "allowed_users"; // Table name 
     
-    mysql_connect($host, $username, $password) OR die("Cannot connect");
-    mysql_select_db($db_name)or die("Cannot select DB");
+    if(!mysql_connect($host, $username, $password)) {
+        header('Location: https://localhost/pfc/errorPage.php');
+        return;
+    }
+    
+    if(!mysql_select_db($db_name)) {
+        header('Location: https://localhost/pfc/errorPage.php');
+        return;
+    }
     
     $user = $_POST["username"];
     $pass = sha1($_POST["password"]);
@@ -28,7 +35,9 @@
     // Mysql_num_row is counting table row
     $count = mysql_num_rows($result);
     if($count == 1) {
-        
+        session_start();
+        $_SESSION['user'] = $user;
+        $_SESSION['logged'] = TRUE;
         //http_redirect("../overview.php", NULL, true, HTTP_REDIRECT_PERM);
         header('Location: https://localhost/pfc/overview.php');
     } else {

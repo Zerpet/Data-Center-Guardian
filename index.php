@@ -9,7 +9,7 @@
         <link rel="stylesheet" type="text/css" href="css/loginpage.css" />
     </head>
     <body>
-        <?php include("header.php"); ?>
+        <?php include("includes/header.php"); ?>
         <div id="login_page">
             <!--<ul class="leftmenu">
                 <li id="gant"  onclick="showHide('gant')"></li>
@@ -28,10 +28,13 @@
             </div>
         </div>
         <?php 
-            if(isset($_GET["error"]) AND $_GET["error"] == 1)
-                echo "<h1>Epic Fail!</h1>"
+            if(isset($_GET["error"]) AND $_GET["error"] == 1) {
         ?>
-        
-        <?php include("footer.php") ?>
+                <div id="login_error">
+                    User or password incorrect
+                </div>
+        <?php    }
+            include("includes/footer.php"); 
+        ?>
     </body>
 </html>
