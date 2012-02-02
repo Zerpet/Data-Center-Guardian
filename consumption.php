@@ -16,7 +16,7 @@
             <p>Consumption</p>
         </div>
         <?php include("includes/leftmenu.php"); ?>
-        <div class="content" style="height: 200px;">
+        <div class="content" style="height: 771px;">
             <div style="float: left;">
                 <div class="phase" id="phaseR">
                     <!-- Title -->

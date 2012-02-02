@@ -25,6 +25,18 @@ h1 {
     text-align: center;
 }
 
+img {
+    border: 0;  
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
 .leftmenu {
     width: 18%;
     float: left;
@@ -33,14 +45,6 @@ h1 {
 .content {
     margin-left: 22%;
     margin-top: 10px;
-}
-
-img {
-    border: 0;  
-}
-
-ul {
-    list-style: none;
 }
 
 .button {
@@ -75,17 +79,7 @@ button.button {
     width: 100%;
     margin-top: 10px;
     margin-bottom: 10px;
-    /* Definition of the transition when the button is clicked
-    transition-property: background-image;
-    transition-duration: 2s;
-    transition-timing-function: linear;
-    -moz-transition-property: background-image;
-    -moz-transition-duration: 2s;
-    -moz-transition-timing-function: linear;
-    -webkit-transition-property: background-image;
-    -webkit-transition-duration: 2s;
-    -webkit-transition-timing-function: linear;
-    */
+    cursor: pointer;
 }
 /*
 button::-moz-focus-inner {
