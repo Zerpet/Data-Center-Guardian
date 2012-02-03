@@ -5,8 +5,8 @@
     }
     
     $host = "localhost"; // Host name
-    $username = "root"; // Mysql username
-    $password = "5Zerpet6"; // Mysql password
+    $username = "web"; // Mysql username
+    $password = "2rrPqnJ3nVh7YYcQ"; // Mysql password
     $db_name = "test"; // Database name
     $tbl_name = "allowed_users"; // Table name 
     
