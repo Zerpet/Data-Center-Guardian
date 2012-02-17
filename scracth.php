@@ -18,6 +18,13 @@
         
         <?php
             include("footer.php");
+            /*
+             * $_SESSION => (
+             *      user -> username of current user
+             *      logged -> true if user is logged
+             *      
+             * )
+             */
         ?>
     </body>
 </html>

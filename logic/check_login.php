@@ -4,21 +4,9 @@
         header('Location: https://localhost/pfc/index.php?error=1');
     }
     
-    $host = "localhost"; // Host name
-    $username = "web"; // Mysql username
-    $password = "2rrPqnJ3nVh7YYcQ"; // Mysql password
-    $db_name = "test"; // Database name
+    require("../includes/connect_DB.php");
+    
     $tbl_name = "allowed_users"; // Table name 
-    
-    if(!mysql_connect($host, $username, $password)) {
-        header('Location: https://localhost/pfc/errorPage.php');
-        return;
-    }
-    
-    if(!mysql_select_db($db_name)) {
-        header('Location: https://localhost/pfc/errorPage.php');
-        return;
-    }
     
     $user = $_POST["username"];
     $pass = sha1($_POST["password"]);
