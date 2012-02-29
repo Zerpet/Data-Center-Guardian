@@ -27,10 +27,10 @@
                     $responsible = mysql_escape_string($responsible);
                     //echo $responsible;
                     $table_name = "machine";
-                    $sql = "SELECT wardrobe FROM $table_name WHERE responsible = $responsible";
+                    $sql = "SELECT `wardrobe` FROM `machine` WHERE `responsible` = 'admin'";
                     
                     // Shouldnt need sanitazing for SQL Injection
-                    $result = mysql_query($sql);
+                    $result = mysql_query($sql, $rsc);
                     if($result === FALSE) {
                         echo "Im sexy and I know it";
                     }
@@ -49,7 +49,7 @@
                 
             </div>
             
-                <canvas id="boxes" width="420" height="522">Your browser does not support canvas element</canvas>
+                <!--<canvas id="boxes" width="420" height="522">Your browser does not support canvas element</canvas>-->
                 
             
         </div>

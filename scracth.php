@@ -1,30 +1,22 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="css/main.css" />
-        <link rel="stylesheet" type="text/css" href="css/header_footer.css" />
-        <title>Scratch</title>
-    </head>
-    <body>
-        <?php
-            include("header.php");
-        ?>
-        
-        <div id="error_page">
-            Your requested page is not available at the moment. Please try again later.<br/>
-            If the error persist, please contact server administrator.<br/>
-        </div>
-        
-        <?php
-            include("footer.php");
-            /*
-             * $_SESSION => (
-             *      user -> username of current user
-             *      logged -> true if user is logged
-             *      
-             * )
-             */
-        ?>
-    </body>
-</html>
+<?php
+
+require 'includes/connect_DB.php';
+
+$responsible = $_SESSION['user'];
+$responsible = stripslashes($responsible);
+$responsible = mysql_escape_string($responsible);
+//echo $responsible;
+$table_name = "machine";
+$sql = "SELECT `wardrobe` FROM `machine` WHERE `responsible` = \'admin\' LIMIT 0, 30 ";
+
+// Shouldnt need sanitazing for SQL Injection
+$result = mysql_query($sql);
+if ($result === FALSE) {
+    echo "Im sexy and I know it";
+}
+/* $rs = array();
+  $i = 0;
+  while( $rs[$i++] = mysql_fetch_assoc($result) );
+
+  print_r($rs); */
+?>

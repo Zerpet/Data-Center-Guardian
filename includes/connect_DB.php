@@ -5,14 +5,16 @@
     $password = "2rrPqnJ3nVh7YYcQ"; // Mysql password
     $db_name = "test"; // Database name
     
-    if(!mysql_connect($host, $username, $password)) {
+    $rsc = mysql_connect($host, $username, $password);
+    
+    if(!$rsc) {
         header('Location: https://localhost/pfc/errorPage.php');
-        return;
+        exit(0);
     }
     
     if(!mysql_select_db($db_name)) {
         header('Location: https://localhost/pfc/errorPage.php');
-        return;
+        exit(0);
     }
     
 ?>
