@@ -1,20 +1,17 @@
 <?php
     
-    $host = "localhost"; // Host name
-    $username = "web"; // Mysql username
-    $password = "2rrPqnJ3nVh7YYcQ"; // Mysql password
-    $db_name = "test"; // Database name
+    $dsn = 'mysql:dbname=test;host=127.0.0.1'; // Host name
+    $username = 'web'; // Mysql username
+    $password = '2rrPqnJ3nVh7YYcQ'; // Mysql password
     
-    $rsc = mysql_connect($host, $username, $password);
-    
-    if(!$rsc) {
-        header('Location: https://localhost/pfc/errorPage.php');
-        exit(0);
-    }
-    
-    if(!mysql_select_db($db_name)) {
-        header('Location: https://localhost/pfc/errorPage.php');
-        exit(0);
+    $dbh = NULL;
+    try {
+        $dbh = new PDO($dsn, $username, $password, array(PDO::ATTR_PERSISTENT));
+        
+    } catch (PDOException $e) {
+        //header('Location: https://localhost/pfc/errorPage.php');
+        echo 'Connection failed: ' . $e->getMessage();
+        die();
     }
     
 ?>

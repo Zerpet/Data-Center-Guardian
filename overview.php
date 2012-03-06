@@ -27,18 +27,21 @@
                     $responsible = mysql_escape_string($responsible);
                     //echo $responsible;
                     $table_name = "machine";
-                    $sql = "SELECT `wardrobe` FROM `machine` WHERE `responsible` = 'admin'";
+                    $sql = "SELECT `wardrobe` FROM `$table_name` WHERE `responsible` = '$responsible'";
                     
-                    // Shouldnt need sanitazing for SQL Injection
-                    $result = mysql_query($sql, $rsc);
-                    if($result === FALSE) {
-                        echo "Im sexy and I know it";
-                    }
-                    /*$rs = array();
+                    $result = mysql_query($sql, $dbh);
+                    $rs = array();
                     $i = 0;
                     while( $rs[$i++] = mysql_fetch_assoc($result) );
                     
-                    print_r($rs);*/
+                    for($i = 0; $i < 6; $i++) {
+                        print('<div class="wardrobe">');
+                        
+                        if(isset($rs[0])) {
+                            
+                        }
+                    }
+                    
                 ?>
                 <div class="wardrobe">
                     <br/>Lab<br/>

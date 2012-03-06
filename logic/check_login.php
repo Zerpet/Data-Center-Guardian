@@ -11,17 +11,11 @@
     $user = $_POST["username"];
     $pass = sha1($_POST["password"]);
     
-    //To avoid SQL Injection
-    $user = stripslashes($user);
-    $pass = stripslashes($pass);
-    $user = mysql_real_escape_string($user);
-    $pass = mysql_real_escape_string($pass);
+    $sql = "SELECT 'X' FROM $tbl_name WHERE name=? AND password=?";
+    $statement = $dbh->prepare($sql);
+    $statement->execute(array($user, $pass));
     
-    $sql = "SELECT 'X' FROM $tbl_name WHERE name='$user' and password='$pass'";
-    $result = mysql_query($sql);
-    
-    // Mysql_num_row is counting table row
-    $count = mysql_num_rows($result);
+    $count = $statement->rowCount();
     if($count == 1) {
         session_start();
         $_SESSION['user'] = $user;
@@ -29,7 +23,6 @@
         //http_redirect("../overview.php", NULL, true, HTTP_REDIRECT_PERM);
         header('Location: https://localhost/pfc/overview.php');
     } else {
-        
         //http_redirect("../index.php", array("error" => TRUE), false, HTTP_REDIRECT_PERM);
         header('Location: https://localhost/pfc/index.php?error=1');
     }
