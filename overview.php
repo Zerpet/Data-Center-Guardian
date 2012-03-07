@@ -22,26 +22,64 @@
                 <?php
                     require 'includes/connect_DB.php';
                     
-                    $responsible = $_SESSION['user'];
-                    $responsible = stripslashes($responsible);
-                    $responsible = mysql_escape_string($responsible);
-                    //echo $responsible;
-                    $table_name = "machine";
-                    $sql = "SELECT `wardrobe` FROM `$table_name` WHERE `responsible` = '$responsible'";
+                    $sql = '';
+                    $stm = null;
+                    $rs = null;
+                    $value = null;
                     
-                    $result = mysql_query($sql, $dbh);
-                    $rs = array();
-                    $i = 0;
-                    while( $rs[$i++] = mysql_fetch_assoc($result) );
-                    
-                    for($i = 0; $i < 6; $i++) {
-                        print('<div class="wardrobe">');
+                    if(!$_SESSION['user'] == 'admin') {
                         
-                        if(isset($rs[0])) {
-                            
+                        $sql = 'SELECT wardrobe FROM machine WHERE responsible=?';  //Get wardrobes where the user has a machine
+                        $stm = $dbh->prepare($sql);
+
+                        if(!$stm->execute(array($_SESSION['user']))) {
+                            print_r('Error executing query' + $stm->errorInfo());
+                            die();
                         }
+                        $rs = $stm->fetchAll(PDO::FETCH_NUM);
+                        $sql = 'SELECT name, input1, ip1, input2, ip2, input3, ip3 FROM wardrobe WHERE position=?';
+                        
+                        $value = array(0); //Need to initialize
+                        $stm = $dbh->prepare($sql);
+                        $stm->bindParam(1, $value[0], PDO::PARAM_INT);
+                    
+                    } else {
+                        $sql = 'SELECT name, input1, ip1, input2, ip2, input3, ip3 FROM wardrobe';
+                        $stm = $dbh->prepare($sql);
+                        $rs = array(0);
                     }
                     
+                    $stm->execute();
+//                    print_r($stm->fetchAll(PDO::FETCH_ASSOC));
+                    for($i = 1; $i < 7; $i++) {
+                        print('<div class="wardrobe">');
+                        
+                        foreach ($rs as $value) {
+                            if($value[0] - 100 == $i || $_SESSION['user'] == 'admin') {
+                                
+                                $result = $stm->fetch(PDO::FETCH_ASSOC);
+                                
+                                print('<br/>' . $result['name'] . '<br/>');
+                                
+                                if($result['input1'] != null) {
+                                    print($result['input1'] . ' -> ' . $result['ip1'] . '<br/>');
+                                } else break;
+                                
+                                
+                                if($result['input2'] != null) {
+                                    print($result['input2'] . ' -> ' . $result['ip2'] . '<br/>');
+                                } else break;
+                                
+                                
+                                if($result['input3'] != null) {
+                                    print($result['input3'] . ' -> ' . $result['ip3'] . '<br/>');
+                                }
+                                break;
+                            }
+                        }
+                        print('</div>');
+                    }
+                    //print_r($stm->fetchAll(PDO::FETCH_ASSOC));
                 ?>
                 <div class="wardrobe">
                     <br/>Lab<br/>
