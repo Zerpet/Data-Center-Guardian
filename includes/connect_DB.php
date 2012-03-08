@@ -7,7 +7,7 @@
     $dbh = NULL;
     try {
         $dbh = new PDO($dsn, $username, $password, array(PDO::ATTR_PERSISTENT));
-        
+        $dbh->query("SET NAMES utf8");
     } catch (PDOException $e) {
         //header('Location: https://localhost/pfc/errorPage.php');
         echo 'Connection failed: ' . $e->getMessage();
