@@ -110,85 +110,88 @@
                     
                 }
                 ?>
-                <div class="wardrobe">
-                    <br/>Lab<br/>
-                </div>
+                
             </div>
             <div style="float:right;">
                 <!-- Right side of wardrobes position: relative; left: 521px; top: -175px-->
                 <?php
-//                if ($_SESSION['user'] == 'administrator') {
-//                    for ($i = 1; $i < 6; $i++) { //Printing left side
-//                        $result = $stm->fetch(PDO::FETCH_ASSOC);    //Fetch next wardrobe
-//
-//                        if ($result['name'] == "unnamed") { //If there are no wardrobe, print it shady
-//                            print('<div class="disabled_wardrobe">');
-//                            print('<br/>');
-//                        } else {
-//                            print('<div class="wardrobe">');
-//                            print('<br/>' . $result['name'] . '<br/>');
-//                        }
-//
-//
-//                        if ($result['iface1'] != null) {
-//                            print($result['iface1'] . ' -> ' . $result['ip1'] . '<br/>');
-//                        }
-//
-//                        if ($result['iface2'] != null) {
-//                            print($result['iface2'] . ' -> ' . $result['ip2'] . '<br/>');
-//                        }
-//
-//                        if ($result['iface3'] != null) {
-//                            print($result['iface3'] . ' -> ' . $result['ip3'] . '<br/>');
-//                        }
-//                        
-//                        print('</div>');
-//                    }
-//                } else {
-//                    for ($i = 1; $i < 7; $i++) {    //We have to print 7 wardrobes
-//                        
-//                        foreach ($rs as $value) {   //Iterate the list of wardrobes we have access
-//                            if ($value[0] - 100 == $i) {    //Can we see this wardrobe?
-//
-//                                $result = $stm->fetch(PDO::FETCH_ASSOC);    //Then fetch data
-//
-//                                if ($result['name'] == "unnamed") {
-//                                    print('<div class="disabled_wardrobe">');
-//                                    print('<br/>');
-//                                } else {
-//                                    print('<div class="wardrobe">');
-//                                    print('<br/>' . $result['name'] . '<br/>');
-//                                }
-//
-//
-//                               if ($result['iface1'] != null) {
-//                                    print($result['iface1'] . ' -> ' . $result['ip1'] . '<br/>');
-//                                }
-//
-//                                if ($result['iface2'] != null) {
-//                                    print($result['iface2'] . ' -> ' . $result['ip2'] . '<br/>');
-//                                }
-//
-//                                if ($result['iface3'] != null) {
-//                                    print($result['iface3'] . ' -> ' . $result['ip3'] . '<br/>');
-//                                }
-//
-//                                print('</div>');
-//
-//                                break; //Stop iterating the list
-//                            } else {    //If we can't see it, print an empty one
-//                                print('<div class="wardrobe">');
-//                                print('</div>');
-//                                break;
-//                            }
-//                        }
-//                        
-//                    }
-//                } $dbh = null;
+                
+                if ($_SESSION['user'] == 'administrator') {
+                    //Here we are administrator
+                    
+                    for ($i = 1; $i < 6; $i++) { //Printing left side
+                        $result = $stm->fetch(PDO::FETCH_ASSOC);    //Fetch next wardrobe
+                        
+                        if ($result['name'] == "unnamed") { //If there are no wardrobe, print it shady
+                            print('<div class="disabled_wardrobe">');
+                            print('<br/>');
+                        } else {
+                            print('<div class="wardrobe">');
+                            print('<br/>' . $result['name'] . '<br/>');
+                        }
+
+
+                        if ($result['iface1'] != null) {
+                            print($result['iface1'] . ' -> ' . $result['ip1'] . '<br/>');
+                        }
+
+                        if ($result['iface2'] != null) {
+                            print($result['iface2'] . ' -> ' . $result['ip2'] . '<br/>');
+                        }
+
+                        if ($result['iface3'] != null) {
+                            print($result['iface3'] . ' -> ' . $result['ip3'] . '<br/>');
+                        }
+                        
+                        print('</div>');
+                    }
+                    
+                } else {
+                    //Here we are regular user
+                    
+                    for($i = 201; $i < 206; $i++) {
+                        
+                        if(in_array(array($i), $rs)) {   //Has the user a machine in $i wardrobe?
+                            $stm->execute();
+                            
+                            $result = $stm->fetch(PDO::FETCH_ASSOC);    //Then fetch data of that wardrobe
+                            
+                            if ($result['name'] == "unnamed") {
+                                print('<div class="disabled_wardrobe">');
+                                print('<br/>');
+                            } else {
+                                print('<div class="wardrobe">');
+                                print('<br/>' . $result['name'] . '<br/>');
+                            }
+                            
+                            if ($result['iface1'] != null) {
+                                print($result['iface1'] . ' -> ' . $result['ip1'] . '<br/>');
+                            }
+
+                            if ($result['iface2'] != null) {
+                                print($result['iface2'] . ' -> ' . $result['ip2'] . '<br/>');
+                            }
+
+                            if ($result['iface3'] != null) {
+                                print($result['iface3'] . ' -> ' . $result['ip3'] . '<br/>');
+                            }
+
+                            print('</div>');
+                            
+                        } else {    //Otherwise print en empty one
+                            print('<div class="wardrobe">');
+                            print('</div>');
+                        }
+                    }
+                    
+                }
+                
+                $dbh = null;
                 ?>
             </div>
-
-    <!--<canvas id="boxes" width="420" height="522">Your browser does not support canvas element</canvas>-->
+            
+            
+            <canvas id="boxes" width="420" height="522">Your browser does not support canvas element</canvas>
 
 
         </div>
