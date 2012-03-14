@@ -35,8 +35,64 @@ button:focus {
     background-color: #999999;
 }
 
-#wardrobe-schema {
+#middle {
     width: 420px; 
-    height: 522px; 
-    float: right;
+/*    height: 1050px; */
+    float: left;
+    border: 1px solid #CCCCCC;
+    box-shadow: 10px 10px 5px #888888;
+    border-radius: 10px;
+    -moz-border-raidus:10px;
+    -webkit-border-radius:10px;
+    margin-bottom: 11px;
+    
+    background-image: linear-gradient(bottom, #E8F2FF 21%, #70A2E3 71%, #70A2E3 91%);
+    background-image: -o-linear-gradient(bottom, #E8F2FF 21%, #70A2E3 71%, #70A2E3 91%);
+    background-image: -moz-linear-gradient(bottom, #E8F2FF 21%, #70A2E3 71%, #70A2E3 91%);
+    background-image: -webkit-linear-gradient(bottom, #E8F2FF 21%, #70A2E3 71%, #70A2E3 91%);
+    background-image: -ms-linear-gradient(bottom, #E8F2FF 21%, #70A2E3 71%, #70A2E3 91%);
+    background-image: -webkit-gradient(
+            linear,
+            left bottom,
+            left top,
+            color-stop(0.21, #E8F2FF),
+            color-stop(0.71, #70A2E3),
+            color-stop(0.91, #70A2E3)
+    );
+}
+
+#wardrobe-view {
+    
+}
+
+#wardrobe-schema {
+    /*border-style: dashed;
+    border-width: 1px;*/
+    margin-top: 30px;
+    margin-left: 25px;
+    width: 180px;
+    text-align: center;
+}
+
+table {
+    empty-cells: show;
+    font-size: 13px;
+    padding-bottom: 25px;
+}
+
+.machine {
+    /*height: 25px;*/
+    border-style: solid;
+    border-width: 1px;
+}
+
+.gap {
+    border-style: dashed;
+    border-width: 1px;
+}
+
+#war-title {
+    font-weight: bold;
+    font-size: 24px;
+    text-align: center;
 }

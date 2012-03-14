@@ -1,4 +1,6 @@
 /*
+ * DO NOT TOUCH THIS TOO MUCH!!!
+ *
  *Declaration of some global variables
  */
 var BOX_X = 54;  //Initial X position of first box

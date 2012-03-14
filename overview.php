@@ -188,7 +188,7 @@
                 $dbh = null;
                 ?>
             </div>
-            <canvas id="boxes" width="420" height="522"><?php include('logic/phases-xml.php') ?></canvas>
+            <canvas id="boxes" width="420" height="522"><!--call here phases-xml and get XML from here--></canvas>
         </div>
         <br style="clear: both;" />
 <?php include("includes/footer.php"); ?>
