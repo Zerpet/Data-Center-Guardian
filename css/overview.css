@@ -34,3 +34,9 @@ button:focus {
     margin-bottom: 5px;
     background-color: #999999;
 }
+
+#wardrobe-schema {
+    width: 420px; 
+    height: 522px; 
+    float: right;
+}

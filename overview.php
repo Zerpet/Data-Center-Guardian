@@ -1,4 +1,4 @@
-<?php require("./logic/check_if_logged.php"); ?>
+<?php require("./logic/check_if_logged.php");//TODO send user here from index if he's logged ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -110,7 +110,6 @@
                     
                 }
                 ?>
-                
             </div>
             <div style="float:right;">
                 <!-- Right side of wardrobes position: relative; left: 521px; top: -175px-->
@@ -189,11 +188,7 @@
                 $dbh = null;
                 ?>
             </div>
-            
-            
             <canvas id="boxes" width="420" height="522">Your browser does not support canvas element</canvas>
-
-
         </div>
         <br style="clear: both;" />
 <?php include("includes/footer.php"); ?>

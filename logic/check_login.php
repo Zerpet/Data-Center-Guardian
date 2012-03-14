@@ -4,6 +4,7 @@
         header('Location: https://localhost/pfc/index.php?error=1');
     }
     
+    global $dbh;
     require("../includes/connect_DB.php");
     
     $tbl_name = "allowed_users"; // Table name 
@@ -14,6 +15,7 @@
     $sql = "SELECT 'X' FROM $tbl_name WHERE name=? AND password=?";
     $statement = $dbh->prepare($sql);
     $statement->execute(array($user, $pass));
+    $dbh = null; 
     
     $count = $statement->rowCount();
     if($count == 1) {
