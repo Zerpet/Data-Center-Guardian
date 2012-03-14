@@ -110,16 +110,16 @@ function drawLines() {
     
     var connections = xmlDoc.getElementsByTagName("connection");
     
-    
+//    console.log(xmlDoc.getElementsByTagName("wardrobe")[6].firstChild.nodeValue);
     ctx.beginPath();
     
-    for(i in connections) {
-        if(connections[i].getElementsByTagName("wardrobe")[0].childNodes[0].nodeValue < 200)
+    for(i = 0; i < connections.length; i++) {
+        if(xmlDoc.getElementsByTagName("wardrobe")[i].firstChild.nodeValue < 200)
             ctx.moveTo(0, WARDROBE_POSITION[i % 6]);
         else 
             ctx.moveTo(420, WARDROBE_POSITION[i % 6]);
         
-        ctx.lineTo(connections[i].getElementsByTagName("x")[0].childNodes[0].nodeValue, connections[i].getElementsByTagName("y")[0].childNodes[0].nodeValue);
+        ctx.lineTo(xmlDoc.getElementsByTagName("x")[i].firstChild.nodeValue, xmlDoc.getElementsByTagName("y")[i].firstChild.nodeValue);
         
     }
     
