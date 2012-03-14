@@ -1,7 +1,7 @@
 <div id="footer">
     <div id="contacto">
         <a href="http://www.uc3m.es" title="Ventana emergente a la Universidad Carlos III de Madrid" style="float: left; margin-right: 15px;">
-            <img src="images/logo_uc3m.gif" alt="Logotipo de la Universidad Carlos III de Madrid" />
+            <img src="https://163.117.142.145/pfc/images/logo_uc3m.gif" alt="Logotipo de la Universidad Carlos III de Madrid" />
         </a>
         <p>
             <em style="color: #173258;">Laboratorio del Departamento de Informática (LDI)</em>

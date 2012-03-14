@@ -3,10 +3,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login</title>
-        <script type="text/javascript" src="js/jquery-1.6.3.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/main.css" />
-        <link rel="stylesheet" type="text/css" href="css/header_footer.css" />
-        <link rel="stylesheet" type="text/css" href="css/loginpage.css" />
+        <script type="text/javascript" src="https://163.117.142.145/pfc/js/jquery-1.6.3.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/main.css" />
+        <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/header_footer.css" />
+        <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/loginpage.css" />
     </head>
     <body>
         <?php include("includes/header.php"); ?>
@@ -17,7 +17,7 @@
                 <li id="line" onclick="showHide('line')"></li>
             </ul>-->
             <div id="login_form">
-                <form action="logic/check_login.php" name="login_form" method="post">
+                <form action="https://163.117.142.145/pfc/logic/check_login.php" name="login_form" method="post">
                     Username<br/>
                     <input id="user" type="text" name="username" maxlength="255"/>
                     <br/><br/>

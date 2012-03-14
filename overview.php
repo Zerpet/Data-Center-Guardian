@@ -4,11 +4,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Overview</title>
-        <script type="text/javascript" src="js/jquery-1.6.3.js"></script>
-        <script type="text/javascript" src="js/canvas_boxes.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/main.css" />
-        <link rel="stylesheet" type="text/css" href="css/header_footer.css" />
-        <link rel="stylesheet" type="text/css" href="css/overview.css" />
+        <script type="text/javascript" src="https://163.117.142.145/pfc/js/jquery-1.6.3.js"></script>
+        <script type="text/javascript" src="https://163.117.142.145/pfc/js/canvas_boxes.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/main.css" />
+        <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/header_footer.css" />
+        <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/overview.css" />
     </head>
     <body onload="drawLines(); drawBoxes();">
         <?php include("includes/header.php"); ?>
@@ -188,7 +188,7 @@
                 $dbh = null;
                 ?>
             </div>
-            <canvas id="boxes" width="420" height="522">Your browser does not support canvas element</canvas>
+            <canvas id="boxes" width="420" height="522"><?php include('logic/phases-xml.php') ?></canvas>
         </div>
         <br style="clear: both;" />
 <?php include("includes/footer.php"); ?>

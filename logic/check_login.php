@@ -1,7 +1,7 @@
 <?php
     if(!isset($_POST["password"]) || !isset($_POST["username"])) {
         //http_redirect("../index.php", array("error" => TRUE), false, HTTP_REDIRECT_PERM);
-        header('Location: https://localhost/pfc/index.php?error=1');
+        header('Location: https://163.117.142.145/pfc/index.php?error=1');
     }
     
     global $dbh;
@@ -23,9 +23,9 @@
         $_SESSION['user'] = $user;
         $_SESSION['logged'] = TRUE;
         //http_redirect("../overview.php", NULL, true, HTTP_REDIRECT_PERM);
-        header('Location: https://localhost/pfc/overview.php');
+        header('Location: https://163.117.142.145/pfc/overview.php');
     } else {
         //http_redirect("../index.php", array("error" => TRUE), false, HTTP_REDIRECT_PERM);
-        header('Location: https://localhost/pfc/index.php?error=1');
+        header('Location: https://163.117.142.145/pfc/index.php?error=1');
     }
 ?>

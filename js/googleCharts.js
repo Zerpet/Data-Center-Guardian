@@ -38,7 +38,7 @@ google.setOnLoadCallback(function(){
         [
             ['Memory',80],
             ['CPU',55],
-            ['T ºC',47]
+            ['TC',47]
         ]
     );
     gau.setTarget("gauge_div");

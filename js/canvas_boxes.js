@@ -99,7 +99,7 @@ function drawLines() {
     var c=document.getElementById("boxes");
     var ctx=c.getContext("2d");
     var xmlRequest = new XMLHttpRequest();
-    xmlRequest.open("GET", "logic/phases-xml.php", false);
+    xmlRequest.open("GET", "https://163.117.142.145/pfc/logic/phases-xml.php", false);
     xmlRequest.send();
     
     var xml = xmlRequest.responseText;
@@ -120,55 +120,8 @@ function drawLines() {
             ctx.moveTo(420, WARDROBE_POSITION[i % 6]);
         
         ctx.lineTo(connections[i].getElementsByTagName("x")[0].childNodes[0].nodeValue, connections[i].getElementsByTagName("y")[0].childNodes[0].nodeValue);
-//        console.log(i);
-//        console.log(connections.getChildNodes[i].getChildNodes[0].nodeValue);
-//        console.log(getChildNodes[i].getChildNodes[1].nodeValue);
-//        console.log(connections[i].tagName);
-//        console.log(connections[i].getElementsByTagName("wardrobe")[0].childNodes[0].nodeValue);
-//        console.log(connections[i].getElementsByTagName("x")[0].childNodes[0].nodeValue);
-//        console.log(connections[i].getElementsByTagName("y")[0].childNodes[0].nodeValue);
+        
     }
-    
-//    
-//    ctx.beginPath();
-//    
-//    //Left side wardrobes
-//    ctx.moveTo(0, WAR_HEIGHT/2);
-//    ctx.lineTo(HORIZONTAL_MID + BOX_WIDTH*2 + BOX_MARGIN*2, BOX_Y);
-//    
-//    ctx.moveTo(0, WAR_HEIGHT*1.5 + WAR_MARGIN*2);
-//    ctx.lineTo(HORIZONTAL_MID + BOX_WIDTH + BOX_MARGIN, BOX_Y);
-//    
-//    ctx.moveTo(0, WAR_HEIGHT*2.5 + WAR_MARGIN*3);
-//    ctx.lineTo(BOX_X, VERTICAL_MID);
-//    
-//    ctx.moveTo(0, WAR_HEIGHT*3.5 + WAR_MARGIN*4);
-//    ctx.lineTo(BOX_X - BOX_WIDTH/2, VERTICAL_MID + PADDING + BOX_HEIGHT);
-//    
-//    ctx.moveTo(0, WAR_HEIGHT*4.5 + WAR_MARGIN*5);
-//    ctx.lineTo(BOX_X - BOX_WIDTH/2, VERTICAL_MID + PADDING + BOX_MARGIN + BOX_HEIGHT*2);
-//    
-//    ctx.moveTo(0, WAR_HEIGHT*5.5 + WAR_MARGIN*6);
-//    ctx.lineTo(BOX_X - BOX_WIDTH/2, VERTICAL_MID + PADDING + BOX_MARGIN*2 + BOX_HEIGHT*3);
-//    
-//    //Right side wardrobes
-//    ctx.moveTo(420, WAR_HEIGHT/2);
-//    ctx.lineTo(HORIZONTAL_MID + BOX_WIDTH*3 + BOX_MARGIN*3, BOX_Y);
-//    
-//    ctx.moveTo(420, WAR_HEIGHT*1.5 + WAR_MARGIN*2);
-//    ctx.lineTo(HORIZONTAL_MID + BOX_WIDTH*5 + BOX_MARGIN*4 - 6,/* -6 to adjust cause was not fitting well*/
-//                    VERTICAL_MID+PADDING+BOX_HEIGHT);
-//    
-//    ctx.moveTo(420, WAR_HEIGHT*2.5 + WAR_MARGIN*3);
-//    ctx.lineTo(HORIZONTAL_MID + BOX_WIDTH*4.5 + BOX_MARGIN*4, VERTICAL_MID);
-//    
-//    ctx.moveTo(420, WAR_HEIGHT*3.5 + WAR_MARGIN*4);
-//    ctx.lineTo(HORIZONTAL_MID + BOX_WIDTH*5 + BOX_MARGIN*4 - 6, VERTICAL_MID + PADDING + BOX_HEIGHT*2 + BOX_MARGIN);
-//    
-//    ctx.moveTo(420, WAR_HEIGHT*4.5 + WAR_MARGIN*5);
-//    ctx.lineTo(HORIZONTAL_MID + BOX_WIDTH*5 + BOX_MARGIN*4 - 6, VERTICAL_MID + PADDING + BOX_HEIGHT*3 + BOX_MARGIN*2);
-//    
-    
     
     ctx.stroke();
     ctx.closePath();
