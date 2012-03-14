@@ -10,7 +10,7 @@
         <link rel="stylesheet" type="text/css" href="css/header_footer.css" />
         <link rel="stylesheet" type="text/css" href="css/overview.css" />
     </head>
-    <body onload="drawBoxes(); drawLines();">
+    <body onload="drawLines(); drawBoxes();">
         <?php include("includes/header.php"); ?>
         <div class="subheader">
             <p>Home</p>

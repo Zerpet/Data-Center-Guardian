@@ -13,30 +13,16 @@ var WAR_HEIGHT = 80;
 var WAR_MARGIN = 5;
 var maxTextWidth = 12;
 
-/*BOX_X + i*(BOX_MARGIN + BOX_WIDTH)
- * Position of wardrobe's connectors; i.e. where the line comes from
- * Array([[x][y]])
+/*
+ * Position Y of wardrobe's connectors
  */
-//var WARDROBE_POSITION = new Array(new Array());
-//WARDROBE_POSITION[0][0] = 0;
-//WARDROBE_POSITION[0][1] = WAR_HEIGHT/2;
-//
-//WARDROBE_POSITION[1][0] = 0;
-//WARDROBE_POSITION[1][1] = WAR_HEIGHT*1.5 + WAR_MARGIN*2;
-//
-//WARDROBE_POSITION[2][0] = 0;
-//WARDROBE_POSITION[2][1] = WAR_HEIGHT*2.5 + WAR_MARGIN*3;
-//
-//WARDROBE_POSITION[3][0] = 0;
-//WARDROBE_POSITION[3][1] = WAR_HEIGHT*3.5 + WAR_MARGIN*4;
-//
-//WARDROBE_POSITION[4][0] = 0;
-//WARDROBE_POSITION[4][1] = WAR_HEIGHT*4.5 + WAR_MARGIN*5;
-//
-//WARDROBE_POSITION[5][0] = 0;
-//WARDROBE_POSITION[5][1] = WAR_HEIGHT*5.5 + WAR_MARGIN*6;
-
-
+var WARDROBE_POSITION = new Array(6);
+WARDROBE_POSITION[0] = WAR_HEIGHT*0.5;
+WARDROBE_POSITION[1] = WAR_HEIGHT*1.5 + WAR_MARGIN*2;
+WARDROBE_POSITION[2] = WAR_HEIGHT*2.5 + WAR_MARGIN*3;
+WARDROBE_POSITION[3] = WAR_HEIGHT*3.5 + WAR_MARGIN*4;
+WARDROBE_POSITION[4] = WAR_HEIGHT*4.5 + WAR_MARGIN*5;
+WARDROBE_POSITION[5] = WAR_HEIGHT*5.5 + WAR_MARGIN*6;
 
 /*
  * Trivial function to save lines of code and make it more readable
@@ -124,55 +110,64 @@ function drawLines() {
     
     var connections = xmlDoc.getElementsByTagName("connection");
     
-    for(i in connections) {
-//        console.log(i);
-//        console.log(connections.getChildNodes[i].getChildNodes[0].nodeValue);
-//        console.log(getChildNodes[i].getChildNodes[1].nodeValue);
-        console.log(connections[i].tagName);
-        console.log(connections[i].getElementsByTagName("wardrobe")[0].childNodes[0].nodeValue);
-        console.log(connections[i].getElementsByTagName("x")[0].childNodes[0].nodeValue);
-        console.log(connections[i].getElementsByTagName("y")[0].childNodes[0].nodeValue);
-    }
-    
     
     ctx.beginPath();
     
-    //Left side wardrobes
+    for(i in connections) {
+        if(connections[i].getElementsByTagName("wardrobe")[0].childNodes[0].nodeValue < 200)
+            ctx.moveTo(0, WARDROBE_POSITION[i % 6]);
+        else 
+            ctx.moveTo(420, WARDROBE_POSITION[i % 6]);
+        
+        ctx.lineTo(connections[i].getElementsByTagName("x")[0].childNodes[0].nodeValue, connections[i].getElementsByTagName("y")[0].childNodes[0].nodeValue);
+//        console.log(i);
+//        console.log(connections.getChildNodes[i].getChildNodes[0].nodeValue);
+//        console.log(getChildNodes[i].getChildNodes[1].nodeValue);
+//        console.log(connections[i].tagName);
+//        console.log(connections[i].getElementsByTagName("wardrobe")[0].childNodes[0].nodeValue);
+//        console.log(connections[i].getElementsByTagName("x")[0].childNodes[0].nodeValue);
+//        console.log(connections[i].getElementsByTagName("y")[0].childNodes[0].nodeValue);
+    }
+    
+//    
+//    ctx.beginPath();
+//    
+//    //Left side wardrobes
 //    ctx.moveTo(0, WAR_HEIGHT/2);
 //    ctx.lineTo(HORIZONTAL_MID + BOX_WIDTH*2 + BOX_MARGIN*2, BOX_Y);
-    
+//    
 //    ctx.moveTo(0, WAR_HEIGHT*1.5 + WAR_MARGIN*2);
 //    ctx.lineTo(HORIZONTAL_MID + BOX_WIDTH + BOX_MARGIN, BOX_Y);
-    
+//    
 //    ctx.moveTo(0, WAR_HEIGHT*2.5 + WAR_MARGIN*3);
 //    ctx.lineTo(BOX_X, VERTICAL_MID);
-    
+//    
 //    ctx.moveTo(0, WAR_HEIGHT*3.5 + WAR_MARGIN*4);
 //    ctx.lineTo(BOX_X - BOX_WIDTH/2, VERTICAL_MID + PADDING + BOX_HEIGHT);
-    
+//    
 //    ctx.moveTo(0, WAR_HEIGHT*4.5 + WAR_MARGIN*5);
 //    ctx.lineTo(BOX_X - BOX_WIDTH/2, VERTICAL_MID + PADDING + BOX_MARGIN + BOX_HEIGHT*2);
-    
+//    
 //    ctx.moveTo(0, WAR_HEIGHT*5.5 + WAR_MARGIN*6);
 //    ctx.lineTo(BOX_X - BOX_WIDTH/2, VERTICAL_MID + PADDING + BOX_MARGIN*2 + BOX_HEIGHT*3);
-    
-    //Right side wardrobes
-    ctx.moveTo(420, WAR_HEIGHT/2);
-    ctx.lineTo(HORIZONTAL_MID + BOX_WIDTH*3 + BOX_MARGIN*3, BOX_Y);
-    
-    ctx.moveTo(420, WAR_HEIGHT*1.5 + WAR_MARGIN*2);
-    ctx.lineTo(HORIZONTAL_MID + BOX_WIDTH*5 + BOX_MARGIN*4 - 6,/* -6 to adjust cause was not fitting well*/
-                    VERTICAL_MID+PADDING+BOX_HEIGHT);
-    
-    ctx.moveTo(420, WAR_HEIGHT*2.5 + WAR_MARGIN*3);
-    ctx.lineTo(HORIZONTAL_MID + BOX_WIDTH*4.5 + BOX_MARGIN*4, VERTICAL_MID);
-    
-    ctx.moveTo(420, WAR_HEIGHT*3.5 + WAR_MARGIN*4);
-    ctx.lineTo(HORIZONTAL_MID + BOX_WIDTH*5 + BOX_MARGIN*4 - 6, VERTICAL_MID + PADDING + BOX_HEIGHT*2 + BOX_MARGIN);
-    
-    ctx.moveTo(420, WAR_HEIGHT*4.5 + WAR_MARGIN*5);
-    ctx.lineTo(HORIZONTAL_MID + BOX_WIDTH*5 + BOX_MARGIN*4 - 6, VERTICAL_MID + PADDING + BOX_HEIGHT*3 + BOX_MARGIN*2);
-    
+//    
+//    //Right side wardrobes
+//    ctx.moveTo(420, WAR_HEIGHT/2);
+//    ctx.lineTo(HORIZONTAL_MID + BOX_WIDTH*3 + BOX_MARGIN*3, BOX_Y);
+//    
+//    ctx.moveTo(420, WAR_HEIGHT*1.5 + WAR_MARGIN*2);
+//    ctx.lineTo(HORIZONTAL_MID + BOX_WIDTH*5 + BOX_MARGIN*4 - 6,/* -6 to adjust cause was not fitting well*/
+//                    VERTICAL_MID+PADDING+BOX_HEIGHT);
+//    
+//    ctx.moveTo(420, WAR_HEIGHT*2.5 + WAR_MARGIN*3);
+//    ctx.lineTo(HORIZONTAL_MID + BOX_WIDTH*4.5 + BOX_MARGIN*4, VERTICAL_MID);
+//    
+//    ctx.moveTo(420, WAR_HEIGHT*3.5 + WAR_MARGIN*4);
+//    ctx.lineTo(HORIZONTAL_MID + BOX_WIDTH*5 + BOX_MARGIN*4 - 6, VERTICAL_MID + PADDING + BOX_HEIGHT*2 + BOX_MARGIN);
+//    
+//    ctx.moveTo(420, WAR_HEIGHT*4.5 + WAR_MARGIN*5);
+//    ctx.lineTo(HORIZONTAL_MID + BOX_WIDTH*5 + BOX_MARGIN*4 - 6, VERTICAL_MID + PADDING + BOX_HEIGHT*3 + BOX_MARGIN*2);
+//    
     
     
     ctx.stroke();
