@@ -117,10 +117,23 @@ function drawLines() {
     xmlRequest.send();
     
     var xml = xmlRequest.responseText;
-    //var connections = xml.getElementsByName("connection");
     
     
-    //console.log("FUUUU" + xml);
+    var parser = new DOMParser();
+    var xmlDoc = parser.parseFromString(xml, "text/xml");
+    
+    var connections = xmlDoc.getElementsByTagName("connection");
+    
+    for(i in connections) {
+//        console.log(i);
+//        console.log(connections.getChildNodes[i].getChildNodes[0].nodeValue);
+//        console.log(getChildNodes[i].getChildNodes[1].nodeValue);
+        console.log(connections[i].tagName);
+        console.log(connections[i].getElementsByTagName("wardrobe")[0].childNodes[0].nodeValue);
+        console.log(connections[i].getElementsByTagName("x")[0].childNodes[0].nodeValue);
+        console.log(connections[i].getElementsByTagName("y")[0].childNodes[0].nodeValue);
+    }
+    
     
     ctx.beginPath();
     
