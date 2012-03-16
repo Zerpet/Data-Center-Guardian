@@ -10,7 +10,7 @@
         <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/header_footer.css" />
         <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/overview.css" />
     </head>
-    <body onload="drawLines(); drawBoxes();">
+    <body onload="drawLines(<?php print("'" . $_SESSION['user'] . "'") ?>); drawBoxes();">
         <?php include("includes/header.php"); ?>
         <div class="subheader">
             <p>Home</p>

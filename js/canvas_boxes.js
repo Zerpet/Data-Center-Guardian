@@ -97,11 +97,11 @@ function drawBoxes() {
 /*
  * This function draws the lines that connect wardrobes to each phase
  */
-function drawLines() {
+function drawLines(user) {
     var c=document.getElementById("boxes");
     var ctx=c.getContext("2d");
     var xmlRequest = new XMLHttpRequest();
-    xmlRequest.open("GET", "https://163.117.142.145/pfc/logic/phases-xml.php", false);
+    xmlRequest.open("GET", "https://163.117.142.145/pfc/logic/phases-xml.php?user=" + user, false);
     xmlRequest.send();
     
     var xml = xmlRequest.responseText;
@@ -114,15 +114,17 @@ function drawLines() {
     
 //    console.log(xmlDoc.getElementsByTagName("wardrobe")[6].firstChild.nodeValue);
     ctx.beginPath();
-    
+
     for(i = 0; i < connections.length; i++) {
-        if(xmlDoc.getElementsByTagName("wardrobe")[i].firstChild.nodeValue < 200)
-            ctx.moveTo(0, WARDROBE_POSITION[i % 6]);
+        
+        var tmp;
+        if((tmp = xmlDoc.getElementsByTagName("wardrobe")[i].firstChild.nodeValue) < 200)
+            ctx.moveTo(0, WARDROBE_POSITION[tmp % 101]);
         else 
-            ctx.moveTo(420, WARDROBE_POSITION[i % 6]);
+            ctx.moveTo(420, WARDROBE_POSITION[tmp % 201]);
         
         ctx.lineTo(xmlDoc.getElementsByTagName("x")[i].firstChild.nodeValue, xmlDoc.getElementsByTagName("y")[i].firstChild.nodeValue);
-        
+
     }
     
     ctx.stroke();
