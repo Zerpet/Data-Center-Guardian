@@ -2,7 +2,20 @@
 global $dbh;    
 require '../includes/connect_DB.php';
 
-$result = $dbh->query("SELECT position, pos_x, pos_y FROM wardrobe A JOIN phase B ON(A.phase = B.id)")->fetchAll(PDO::FETCH_ASSOC);
+$user = null;
+if(isset($_GET['user']))
+    $user = $_GET['user'];
+else 
+    die();
+
+$result = null;
+if($user == 'administrator')
+    $result = $dbh->query("SELECT position, pos_x, pos_y FROM wardrobe A JOIN phase B ON(A.phase = B.id)")->fetchAll(PDO::FETCH_ASSOC);
+else {
+    $stm = $dbh->prepare("SELECT wardrobe AS position, pos_x, pos_y FROM (SELECT wardrobe, phase FROM machine A JOIN wardrobe B ON(A.wardrobe = B.position) WHERE responsible=?) C JOIN phase D ON(C.phase=D.id);");
+    $stm->execute(array($_GET['user']));
+    $result = $stm->fetchAll(PDO::FETCH_ASSOC);
+}
 $dbh = null;    //Close connection to DB
 
 $xmlDoc = new DOMDocument();
