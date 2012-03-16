@@ -188,7 +188,7 @@
                 $dbh = null;
                 ?>
             </div>
-            <canvas id="boxes" width="420" height="522"><!--call here phases-xml and get XML from here--></canvas>
+            <canvas id="boxes" width="420" height="522">Your browser does not support canvas element</canvas>
         </div>
         <br style="clear: both;" />
 <?php include("includes/footer.php"); ?>

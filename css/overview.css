@@ -35,16 +35,16 @@ button:focus {
     background-color: #999999;
 }
 
-#middle {
+#wardrobe-view {
     width: 420px; 
-/*    height: 1050px; */
     float: left;
+    margin-bottom: 11px;
+    
     border: 1px solid #CCCCCC;
     box-shadow: 10px 10px 5px #888888;
     border-radius: 10px;
     -moz-border-raidus:10px;
     -webkit-border-radius:10px;
-    margin-bottom: 11px;
     
     background-image: linear-gradient(bottom, #E8F2FF 21%, #70A2E3 71%, #70A2E3 91%);
     background-image: -o-linear-gradient(bottom, #E8F2FF 21%, #70A2E3 71%, #70A2E3 91%);
@@ -59,10 +59,8 @@ button:focus {
             color-stop(0.71, #70A2E3),
             color-stop(0.91, #70A2E3)
     );
-}
-
-#wardrobe-view {
-    
+    position: absolute; 
+/* DANGER!!! */
 }
 
 #wardrobe-schema {
@@ -84,6 +82,14 @@ table {
     /*height: 25px;*/
     border-style: solid;
     border-width: 1px;
+    background-color: white;
+}
+
+.shady-machine {
+    /*height: 25px;*/
+    border-style: solid;
+    border-width: 1px;
+    background-color: grey;
 }
 
 .gap {
@@ -95,4 +101,11 @@ table {
     font-weight: bold;
     font-size: 24px;
     text-align: center;
+}
+
+.war-button {
+    margin-left: 230px; 
+    position: absolute; 
+    left: 20px; 
+    width: 120px;
 }
