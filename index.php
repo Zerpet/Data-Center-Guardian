@@ -23,7 +23,7 @@
                     <br/><br/>
                     Password<br/>
                     <input id="password" type="password" name="password" maxlength="64"/><br/>
-                    <input id="submit" class="button" type="submit" name="submit" value="Login"/>
+                    <input id="submit" class="medium button blue" type="submit" name="submit" value="Login"/>
                 </form>
             </div>
             <?php 
