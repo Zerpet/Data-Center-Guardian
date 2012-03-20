@@ -1,4 +1,29 @@
-<?php require("./logic/check_if_logged.php");//TODO send user here from index if he's logged ?>
+<?php require("./logic/check_if_logged.php");//TODO send user here from index if he's logged 
+function print_wardrobe(array $info) {
+    if ($info['name'] == "unnamed") { //If there are no wardrobe, print it shady
+        print('<div class="disabled_wardrobe">');
+        print('<br/>');
+    } else {
+        print('<div class="wardrobe">');
+        print('<br/>' . $info['name'] . '<br/>');
+    }
+
+
+    if ($info['iface1'] != null) {
+        print($info['iface1'] . ' -> ' . $info['ip1'] . '<br/>');
+    }
+
+    if ($info['iface2'] != null) {
+        print($info['iface2'] . ' -> ' . $info['ip2'] . '<br/>');
+    }
+
+    if ($info['iface3'] != null) {
+        print($info['iface3'] . ' -> ' . $info['ip3'] . '<br/>');
+    }
+
+    print('</div>');
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -34,29 +59,7 @@
                     
                     for ($i = 1; $i < 7; $i++) { //Printing left side
                         $result = $stm->fetch(PDO::FETCH_ASSOC);    //Fetch next wardrobe
-
-                        if ($result['name'] == "unnamed") { //If there are no wardrobe, print it shady
-                            print('<div class="disabled_wardrobe">');
-                            print('<br/>');
-                        } else {
-                            print('<div class="wardrobe">');
-                            print('<br/>' . $result['name'] . '<br/>');
-                        }
-
-
-                        if ($result['iface1'] != null) {
-                            print($result['iface1'] . ' -> ' . $result['ip1'] . '<br/>');
-                        }
-
-                        if ($result['iface2'] != null) {
-                            print($result['iface2'] . ' -> ' . $result['ip2'] . '<br/>');
-                        }
-
-                        if ($result['iface3'] != null) {
-                            print($result['iface3'] . ' -> ' . $result['ip3'] . '<br/>');
-                        }
-                        
-                        print('</div>');
+                        print_wardrobe($result);
                     }
                     
                 } else {
@@ -79,29 +82,7 @@
                             $stm->execute();
                             
                             $result = $stm->fetch(PDO::FETCH_ASSOC);    //Then fetch data of that wardrobe
-                            
-                            if ($result['name'] == "unnamed") {
-                                print('<div class="disabled_wardrobe">');
-                                print('<br/>');
-                            } else {
-                                print('<div class="wardrobe">');
-                                print('<br/>' . $result['name'] . '<br/>');
-                            }
-                            
-                            if ($result['iface1'] != null) {
-                                print($result['iface1'] . ' -> ' . $result['ip1'] . '<br/>');
-                            }
-
-                            if ($result['iface2'] != null) {
-                                print($result['iface2'] . ' -> ' . $result['ip2'] . '<br/>');
-                            }
-
-                            if ($result['iface3'] != null) {
-                                print($result['iface3'] . ' -> ' . $result['ip3'] . '<br/>');
-                            }
-
-                            print('</div>');
-                            
+                            print_wardrobe($result);
                         } else {    //Otherwise print en empty one
                             print('<div class="wardrobe">');
                             print('</div>');
@@ -110,6 +91,41 @@
                     
                 }
                 ?>
+            </div>
+            <div id="wardrobe-view" hidden="true">
+                <p id="war-title">Lab</p>
+                <div style="float: left;">
+                    <table id="wardrobe-schema">
+                        <tbody>
+                            <tr>
+                                <td class="machine" style="height: 40px">Jean Luc</td>
+                            </tr>
+                            <tr>
+                            <tr>
+                                <td class="shady-machine" style="height: 20px">Jean Luc</td>
+                            </tr>
+                            <tr>
+                                <td class="gap" style="height: 20px"></td>
+                            </tr>
+                            <?php
+                            for($i = 1; $i < 19; $i++) {
+                                print("<tr>");
+                                print("<td class=\"gap\" style=\"height: 20px\"></td>");
+                                print("</tr>");
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="wardrobe-info">
+                    <ul style="margin-bottom: 20px;">
+                        <li>2 -> 154</li>
+                        <li>4 -> 155</li>
+                        <li>5 -> 164</li>
+                    </ul>
+                    <button class="medium button marine" type="button" name="add">Add Machine</button>
+                    <button class="medium button marine" type="button" name="edit">Edit Wardrobe</button>
+                </div>
             </div>
             <div style="float:right;">
                 <!-- Right side of wardrobes position: relative; left: 521px; top: -175px-->
@@ -120,29 +136,7 @@
                     
                     for ($i = 1; $i < 6; $i++) { //Printing left side
                         $result = $stm->fetch(PDO::FETCH_ASSOC);    //Fetch next wardrobe
-                        
-                        if ($result['name'] == "unnamed") { //If there are no wardrobe, print it shady
-                            print('<div class="disabled_wardrobe">');
-                            print('<br/>');
-                        } else {
-                            print('<div class="wardrobe">');
-                            print('<br/>' . $result['name'] . '<br/>');
-                        }
-
-
-                        if ($result['iface1'] != null) {
-                            print($result['iface1'] . ' -> ' . $result['ip1'] . '<br/>');
-                        }
-
-                        if ($result['iface2'] != null) {
-                            print($result['iface2'] . ' -> ' . $result['ip2'] . '<br/>');
-                        }
-
-                        if ($result['iface3'] != null) {
-                            print($result['iface3'] . ' -> ' . $result['ip3'] . '<br/>');
-                        }
-                        
-                        print('</div>');
+                        print_wardrobe($result);
                     }
                     
                 } else {
@@ -154,29 +148,7 @@
                             $stm->execute();
                             
                             $result = $stm->fetch(PDO::FETCH_ASSOC);    //Then fetch data of that wardrobe
-                            
-                            if ($result['name'] == "unnamed") {
-                                print('<div class="disabled_wardrobe">');
-                                print('<br/>');
-                            } else {
-                                print('<div class="wardrobe">');
-                                print('<br/>' . $result['name'] . '<br/>');
-                            }
-                            
-                            if ($result['iface1'] != null) {
-                                print($result['iface1'] . ' -> ' . $result['ip1'] . '<br/>');
-                            }
-
-                            if ($result['iface2'] != null) {
-                                print($result['iface2'] . ' -> ' . $result['ip2'] . '<br/>');
-                            }
-
-                            if ($result['iface3'] != null) {
-                                print($result['iface3'] . ' -> ' . $result['ip3'] . '<br/>');
-                            }
-
-                            print('</div>');
-                            
+                            print_wardrobe($result);
                         } else {    //Otherwise print en empty one
                             print('<div class="wardrobe">');
                             print('</div>');
