@@ -5,6 +5,10 @@ function show_wardrobe(position) {
         $('#wardrobe-view').hide('fast', function() {
             $('#boxes').slideDown(400);
         });
+    } else if(!$('#wardrobe-view').is(':visible') && $('#wardrobe-view').hasClass(position)) {
+        $('#boxes').slideUp(400, function() {
+            $('#wardrobe-view').show('fast');
+        });
     } else {
         $('#wardrobe-view').hide('fast', function() {
             $('#boxes').hide('high', function() {
@@ -25,3 +29,7 @@ function show_wardrobe(position) {
     }
 }
 
+function hide_view() {
+    $('#wardrobe-view').hide(400);
+    $('#boxes').show('fast');
+}
