@@ -86,4 +86,5 @@ $dbh = NULL;
     </ul>
     <button class="medium button marine" type="button" name="add" onclick="alert('Not implemented yet!');">Add Machine</button>
     <button class="medium button marine" type="button" name="edit" onclick="alert('Not implemented yet!');">Edit Wardrobe</button>
+    <button class="medium button marine" type="button" name="back" onclick="hide_view();">Hide this view</button>
 </div>
