@@ -1,4 +1,5 @@
 <?php
+require 'check_if_logged.php';
 global $dbh;    
 require '../includes/connect_DB.php';
 

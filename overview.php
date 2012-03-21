@@ -1,10 +1,10 @@
 <?php require("./logic/check_if_logged.php");//TODO send user here from index if he's logged 
-function print_wardrobe(array $info) {
+function print_wardrobe(array $info, $position) {
     if ($info['name'] == "unnamed") { //If there are no wardrobe, print it shady
         print('<div class="disabled_wardrobe">');
         print('<br/>');
     } else {
-        print('<div class="wardrobe">');
+        print('<div class="wardrobe" onclick="show_wardrobe(\'' . $position . '\')">');
         print('<br/>' . $info['name'] . '<br/>');
     }
 
@@ -31,6 +31,7 @@ function print_wardrobe(array $info) {
         <title>Overview</title>
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/jquery-1.6.3.js"></script>
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/canvas_boxes.js"></script>
+        <script type="text/javascript" src="https://163.117.142.145/pfc/js/show_things.js"></script>
         <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/main.css" />
         <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/header_footer.css" />
         <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/overview.css" />
@@ -59,7 +60,7 @@ function print_wardrobe(array $info) {
                     
                     for ($i = 1; $i < 7; $i++) { //Printing left side
                         $result = $stm->fetch(PDO::FETCH_ASSOC);    //Fetch next wardrobe
-                        print_wardrobe($result);
+                        print_wardrobe($result, 100 + $i);
                     }
                     
                 } else {
@@ -82,7 +83,7 @@ function print_wardrobe(array $info) {
                             $stm->execute();
                             
                             $result = $stm->fetch(PDO::FETCH_ASSOC);    //Then fetch data of that wardrobe
-                            print_wardrobe($result);
+                            print_wardrobe($result, $i);
                         } else {    //Otherwise print en empty one
                             print('<div class="wardrobe">');
                             print('</div>');
@@ -92,41 +93,7 @@ function print_wardrobe(array $info) {
                 }
                 ?>
             </div>
-            <div id="wardrobe-view" hidden="true">
-                <p id="war-title">Lab</p>
-                <div style="float: left;">
-                    <table id="wardrobe-schema">
-                        <tbody>
-                            <tr>
-                                <td class="machine" style="height: 40px">Jean Luc</td>
-                            </tr>
-                            <tr>
-                            <tr>
-                                <td class="shady-machine" style="height: 20px">Jean Luc</td>
-                            </tr>
-                            <tr>
-                                <td class="gap" style="height: 20px"></td>
-                            </tr>
-                            <?php
-                            for($i = 1; $i < 19; $i++) {
-                                print("<tr>");
-                                print("<td class=\"gap\" style=\"height: 20px\"></td>");
-                                print("</tr>");
-                            }
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
-                <div id="wardrobe-info">
-                    <ul style="margin-bottom: 20px;">
-                        <li>2 -> 154</li>
-                        <li>4 -> 155</li>
-                        <li>5 -> 164</li>
-                    </ul>
-                    <button class="medium button marine" type="button" name="add">Add Machine</button>
-                    <button class="medium button marine" type="button" name="edit">Edit Wardrobe</button>
-                </div>
-            </div>
+            <div id="wardrobe-view" style="display: none;"></div>
             <div style="float:right;">
                 <!-- Right side of wardrobes position: relative; left: 521px; top: -175px-->
                 <?php
@@ -136,7 +103,7 @@ function print_wardrobe(array $info) {
                     
                     for ($i = 1; $i < 6; $i++) { //Printing left side
                         $result = $stm->fetch(PDO::FETCH_ASSOC);    //Fetch next wardrobe
-                        print_wardrobe($result);
+                        print_wardrobe($result, 200 + $i);
                     }
                     
                 } else {
@@ -148,7 +115,7 @@ function print_wardrobe(array $info) {
                             $stm->execute();
                             
                             $result = $stm->fetch(PDO::FETCH_ASSOC);    //Then fetch data of that wardrobe
-                            print_wardrobe($result);
+                            print_wardrobe($result, $i);
                         } else {    //Otherwise print en empty one
                             print('<div class="wardrobe">');
                             print('</div>');
