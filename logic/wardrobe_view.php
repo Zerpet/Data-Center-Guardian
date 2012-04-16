@@ -15,6 +15,7 @@ if(!isset($_POST['rac'])) {
     die();
 }
 
+//Query RAC information
 $stm = $dbh->prepare("SELECT name, iface1, iface2, iface3, ip1, ip2, ip3 FROM wardrobe WHERE position=?");
 $stm->execute(array($_POST['rac']));
 
@@ -25,9 +26,15 @@ if($result === FALSE) {
     die(1);
 }
 
+//Query machines information
+if($_SESSION['user'] == "administrator") {
+    $stm = $dbh->prepare("SELECT name, color, starting_pos, num_u FROM machine WHERE wardrobe=?");
+    $stm->execute(array($_POST['rac']));
+} else {
+    $stm = $dbh->prepare("SELECT name, color, starting_pos, num_u FROM machine WHERE responsible=? AND wardrobe=?");
+    $stm->execute(array($_SESSION['user'], $_POST['rac']));
+}
 
-$stm = $dbh->prepare("SELECT name, color, starting_pos, num_u FROM machine WHERE responsible=? AND wardrobe=?");
-$stm->execute(array($_SESSION['user'], $_POST['rac']));
 
 $schema = $stm->fetchAll(PDO::FETCH_ASSOC);
 if($schema === FALSE) {
@@ -44,27 +51,43 @@ $dbh = NULL;
 
 <p id="war-title"><?php echo $result['name'] ?></p>
 <div style="float: left;">
-    <table id="wardrobe-schema">
+    <table id="rac-schema">
         <tbody>
             <?php
+            $lastgaps = 0;
             for($i = 42; $i > 0; $i--) {    //Error checking about overlaped/overflowed/underflowed machines must be done in MySQL
-                print("<tr>");
-
+                
                 $found = FALSE;
+                
                 foreach ($schema as $machine) {
                     if($machine['starting_pos'] == $i) {
                         $tmp = 20 * $machine['num_u'];
+                        
+                        print("<tr>");
                         print('<td class="' . $machine['color'] . '-machine" style="height: ' . $tmp . 'px">' . $machine['name'] . '</td>');
+                        print("</tr>");
+                        
                         $found = TRUE;
+                        $lastgaps = 0;
                         break;
                     }
                 }
 
-                if(!$found)
-                    print("<td class=\"gap\" style=\"height: 20px\"></td>");
-
-                print("</tr>");
+                if(!$found) {
+                    //We only print a gap for every 10 positions. Later on this could be expanded using a button
+                    if($lastgaps++ % 10 == 0) {
+                        print("<tr>");
+                        print("<td class=\"gap\" style=\"height: 20px\"></td>");
+                        print("</tr>");
+                    } else {
+                        print("<tr class=\"compact\" style=\" display: none;\">");
+                        print("<td class=\"gap\" style=\"height: 20px;\"></td>");
+                        print("</tr>");
+                    }
+                }
+                
             }
+            unset($lastgaps);
             ?>
         </tbody>
     </table>
@@ -86,6 +109,6 @@ $dbh = NULL;
     </ul>
     <button class="medium button marine" type="button" name="add" onclick="alert('Not implemented yet!');">Add Machine</button>
     <button class="medium button marine" type="button" name="edit" onclick="alert('Not implemented yet!');">Edit RAC</button>
-    <button class="medium button marine" type="button" name="edit" onclick="alert('Not implemented yet!');">Expand RAC</button>
+    <button class="medium button marine" type="button" name="expand" onclick="expand_compact_rac();">Expand RAC</button>
     <button class="medium button marine" type="button" name="back" onclick="hide_view('rac-view', 'boxes');">Hide this view</button>
 </div>

@@ -8,18 +8,18 @@ function show_rac(position) {
     
     if($('#rac-view').is(':visible') && $('#rac-view').hasClass(position)) {
         //Hide rac view and show back boxes
-        $('#rac-view').hide('fast', function() {
+        $('#rac-view').hide(400, function() {
             $('#boxes').slideDown(400);
         });
     } else if(!$('#rac-view').is(':visible') && $('#rac-view').hasClass(position)) {
         //Hide boxes and show 'cached' RAC
         $('#boxes').slideUp(400, function() {
-            $('#rac-view').show('fast');
+            $('#rac-view').show(400);
         });
     } else {
         //Hide everything in middle and query for clicked rac
-        $('#rac-view').hide('fast', function() {
-            $('#boxes').hide('high', function() {
+        $('#rac-view').hide('slow', function() {
+            $('#boxes').hide('slow', function() {
                 $.ajax({
                 url: "https://163.117.142.145/pfc/logic/wardrobe_view.php",
                 type: "POST",
@@ -52,4 +52,24 @@ function hide_view(hideme, showme) {
     if(showme !== undefined)
         $('#' + showme).show('fast');
     
+}
+
+/**
+ * 
+ */
+function expand_compact_rac() {
+    if($('#rac-view').is(":visible")) {
+        
+        $('.compact').each(function( i ) {
+            $(this).fadeToggle(200 + i*100);
+        });
+        
+        if($('button[name=expand]').attr("name") === "expand") {
+            $('button[name=expand]').text("Compact RAC");
+            $('button[name=expand]').attr("name", "compact");
+        } else if($('button[name=compact]').attr("name") === "compact") {
+            $('button[name=compact]').text("Expand RAC");
+            $('button[name=compact]').attr("name", "expand");
+        }
+    }
 }
