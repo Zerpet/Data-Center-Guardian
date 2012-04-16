@@ -4,7 +4,7 @@ function print_wardrobe(array $info, $position) {
         print('<div class="disabled_wardrobe">');
         print('<br/>');
     } else {
-        print('<div class="wardrobe" onclick="show_wardrobe(\'' . $position . '\')">');
+        print('<div class="wardrobe" onclick="show_rac(\'' . $position . '\')">');
         print('<br/>' . $info['name'] . '<br/>');
     }
 
@@ -93,7 +93,7 @@ function print_wardrobe(array $info, $position) {
                 }
                 ?>
             </div>
-            <div id="wardrobe-view" style="display: none;"></div>
+            <div id="rac-view" style="display: none;"></div>
             <div style="float:right;">
                 <!-- Right side of wardrobes position: relative; left: 521px; top: -175px-->
                 <?php
