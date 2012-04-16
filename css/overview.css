@@ -23,7 +23,7 @@ button:focus {
     border: 1px solid #AAAAAA;
     text-align: center;
     margin-bottom: 5px;
-    
+    cursor: url("https://163.117.142.145/pfc/images/magnifyingglass.gif"), pointer;
 }
 
 .disabled_wardrobe {
