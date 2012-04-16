@@ -107,8 +107,12 @@ $dbh = NULL;
         unset($result);
         ?>
     </ul>
+    
+    <?php if($_SESSION['user'] == "administrator") { ?>
     <button class="medium button marine" type="button" name="add" onclick="alert('Not implemented yet!');">Add Machine</button>
     <button class="medium button marine" type="button" name="edit" onclick="alert('Not implemented yet!');">Edit RAC</button>
+    <?php } ?>
+    
     <button class="medium button marine" type="button" name="expand" onclick="expand_compact_rac();">Expand RAC</button>
     <button class="medium button marine" type="button" name="back" onclick="hide_view('rac-view', 'boxes');">Hide this view</button>
 </div>
