@@ -22,6 +22,7 @@
         session_start();
         $_SESSION['user'] = $user;
         $_SESSION['logged'] = TRUE;
+        $_SESSION['LAST_ACTIVITY'] = time();
         //http_redirect("../overview.php", NULL, true, HTTP_REDIRECT_PERM);
         header('Location: https://163.117.142.145/pfc/overview.php');
     } else {

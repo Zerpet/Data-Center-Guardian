@@ -1,3 +1,11 @@
+<?php
+session_start();
+if(isset($_SESSION['logged']) && $_SESSION['logged'] === TRUE) {
+    header("Location: https://163.117.142.145/pfc/overview.php");
+} else {
+    session_destroy();
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
