@@ -55,7 +55,7 @@ function hide_view(hideme, showme) {
 }
 
 /**
- * 
+ * Function to expand or compact the RAC schema painted on RAC view.
  */
 function expand_compact_rac() {
     if($('#rac-view').is(":visible")) {
