@@ -93,7 +93,7 @@ $dbh = NULL;
     </table>
 </div>
 <div id="rac-info">
-    <ul style="margin-bottom: 20px;">
+    <ul id="rac-iface" style="margin-bottom: 20px;">
         <?php 
         if($result['iface1'] !== NULL)
             echo "<li>" . $result['iface1'] . "->" . $result['ip1'] . "</li>";

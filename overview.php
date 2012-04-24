@@ -39,7 +39,7 @@ function print_wardrobe(array $info, $position) {
     <body onload="drawLines(<?php print("'" . $_SESSION['user'] . "'") ?>); drawBoxes();">
         <?php include("includes/header.php"); ?>
         <div class="subheader">
-            <p>Home</p>
+            <p>Welcome Home <?php print $_SESSION['user'] ?></p>
         </div>
         <?php include("includes/leftmenu.php"); ?>
         <div class="content">
