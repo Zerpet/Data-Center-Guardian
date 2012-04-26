@@ -15,7 +15,7 @@ if(!isset($_POST['rac'])) {
     die();
 }
 
-//Query RAC information
+//Query RACK information
 $stm = $dbh->prepare("SELECT name, iface1, iface2, iface3, ip1, ip2, ip3 FROM wardrobe WHERE position=?");
 $stm->execute(array($_POST['rac']));
 
@@ -92,25 +92,26 @@ $dbh = NULL;
         </tbody>
     </table>
 </div>
+
 <div id="rac-info">
     <ul id="rac-iface" style="margin-bottom: 20px;">
         <?php 
         if($result['iface1'] !== NULL)
-            echo "<li>" . $result['iface1'] . "->" . $result['ip1'] . "</li>";
+            echo "<li>" . $result['iface1'] . " -> " . $result['ip1'] . "</li>";
 
         if($result['iface2'] !== NULL)
-            echo "<li>" . $result['iface2'] . "->" . $result['ip2'] . "</li>";
+            echo "<li>" . $result['iface2'] . " -> " . $result['ip2'] . "</li>";
 
         if($result['iface3'] !== NULL)
-            echo "<li>" . $result['iface3'] . "->" . $result['ip3'] . "</li>";
+            echo "<li>" . $result['iface3'] . " -> " . $result['ip3'] . "</li>";
 
         unset($result);
         ?>
     </ul>
     
     <?php if($_SESSION['user'] == "administrator") { ?>
-    <button class="medium button marine" type="button" name="add" onclick="alert('Not implemented yet!');">Add Machine</button>
-    <button class="medium button marine" type="button" name="edit" onclick="alert('Not implemented yet!');">Edit RAC</button>
+    <button id="add_machine" class="medium button marine" type="button" name="add" onclick="alert('Not implemented yet!');">Add Machine</button>
+    <button id="edit_rack" class="medium button marine" type="button" name="edit" onclick="edit_rack();">Edit RACK</button>
     <?php } ?>
     
     <button class="medium button marine" type="button" name="expand" onclick="expand_compact_rac();">Expand RAC</button>
