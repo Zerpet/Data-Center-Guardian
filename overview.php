@@ -29,7 +29,7 @@ function print_wardrobe(array $info, $position) {
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Overview</title>
-        <script type="text/javascript" src="https://163.117.142.145/pfc/js/jquery-1.6.3.js"></script>
+        <script type="text/javascript" src="https://163.117.142.145/pfc/js/jquery-1.7.2.min.js"></script>
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/canvas_boxes.js"></script>
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/show_things.js"></script>
         <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/main.css" />
@@ -44,7 +44,7 @@ function print_wardrobe(array $info, $position) {
         <?php include("includes/leftmenu.php"); ?>
         <div class="content">
             <div style="float: left;">
-                <!-- Left side of wardrobes -->
+                <!-- Left side -->
                 <?php
                 require 'includes/connect_DB.php';
 
@@ -70,7 +70,7 @@ function print_wardrobe(array $info, $position) {
                     $stm->execute(array($_SESSION['user']));
                     $rs = $stm->fetchAll(PDO::FETCH_NUM);   //Save result for later use
                     
-                    
+                    // TODO optimize for scalability
                     $sql = 'SELECT name, iface1, ip1, iface2, ip2, iface3, ip3 FROM wardrobe WHERE position=?';
                     $stm = $dbh->prepare($sql);
                     
@@ -95,7 +95,7 @@ function print_wardrobe(array $info, $position) {
             </div>
             <div id="rac-view" style="display: none;"></div>
             <div style="float:right;">
-                <!-- Right side of wardrobes position: relative; left: 521px; top: -175px-->
+                <!-- Right side -->
                 <?php
                 
                 if ($_SESSION['user'] == 'administrator') {
