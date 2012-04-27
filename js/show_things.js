@@ -84,8 +84,9 @@ function cancel_rack_editing() {
         
         $('#rac-iface').children("li").each(function(index) {
             $(this).text(sessionStorage.getItem("iface" + index));
-            sessionStorage.removeItem("iface" + index); //Once restored, remove
         });
+        
+        sessionStorage.clear(); //Once restored, remove
         
         //Next lines are just to remove some text from "editable mode", which is not necessary any more
         $('#rac-iface').children("input").remove();
@@ -95,6 +96,7 @@ function cancel_rack_editing() {
     } else {
         alert("Changes can not be undone because your browser does not support web storage");
         
+        //But remove html for inputs
         $('#rac-iface').children("input").remove();
         var aux2 = $('#rac-iface').html();
         $('#rac-iface').html(aux2.substr(0, aux2.lastIndexOf("</li>") + 5));
@@ -120,8 +122,10 @@ function edit_rack() {
     var ifaces = new Array();
     $('#rac-iface').children("li").each(function(i) {
         ifaces[i] = $(this).text();
+        
         //Add editable text field for each element in list
         $(this).html('<input type="number" value="' + ifaces[i].split(" -> ")[0] + '"' + 'size="3" />' + ' -> ' + '<input type="number" value="' + ifaces[i].split(" -> ")[1] + '"' + 'size="4" />');
+        
         index++;
     });
     
@@ -141,6 +145,7 @@ function edit_rack() {
     
     if(typeof(Storage)!=="undefined")
     {
+        //Store a copy of current values, just in case
         for(i = 0; i < ifaces.length; i++) 
             sessionStorage.setItem("iface" + i, ifaces[i]);
         
@@ -151,8 +156,62 @@ function edit_rack() {
     
 }
 
+/**
+ * This function is usefull to validate the data from rack view in editable-mode.
+ * It recevies two inputs, they should be integer numbers
+ */
+function sanitaze_input(iface, ip) {
+    
+    if(!typeof(iface) === "number" || iface < 0) 
+        return false;
+    
+    
+    if(!typeof(ip) === "number" && (ip !== "___" || ip !== "")) //The interface may be open
+        return false;
+    
+    
+    if(ip < 0 || ip > 255) 
+        return false;
+    
+    return true;
+}
 
+/**
+ * 
+ */
 function commit_rack() {
+    
+    var pairs = new Array(3);
+    var i = 0;
+    //Burrarrum!
+    $('input').each(function(index, dom) {
+        
+        if(index % 2 == 0) {    //If is even, iface
+            pairs[i] = new Array(2);
+            pairs[i][0] = dom.value;
+        } else {    //If is odd, ip
+            pairs[i++][1] = dom.value;
+        }
+        
+    });
+    
+    var post_string = "rack=" + $('#rac-view').attr("class");
+    
+    for(i = 0; i < pairs.length; i++) {
+        
+        if(sanitaze_input(pairs[i][0], pairs[i][1])) {
+            post_string = post_string.concat("&iface" + (i+1) + "=" + pairs[i][0], "&ip" + (i+1) + "=" + pairs[i][1]);
+        }
+    }
+    
+    console.log(post_string);
+    
+    //Time to ajax
+    $.post("https://163.168.142.145/pfc/logic/rack_commit.php", post_string, 
+        function(data, textStatus, jqXHR) {
+            //TODO on success
+            
+        }, "xml");
     
 }
 
