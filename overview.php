@@ -1,4 +1,4 @@
-<?php require("./logic/check_if_logged.php");//TODO send user here from index if he's logged 
+<?php require("./logic/check_if_logged.php");
 function print_wardrobe(array $info, $position) {
     if ($info['name'] == "unnamed") { //If there are no wardrobe, print it shady
         print('<div class="disabled_wardrobe">');
@@ -32,6 +32,7 @@ function print_wardrobe(array $info, $position) {
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/jquery-1.7.2.min.js"></script>
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/canvas_boxes.js"></script>
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/show_things.js"></script>
+        <script type="text/javascript" src="https://163.117.142.145/pfc/js/rack-tools.js"></script>
         <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/main.css" />
         <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/header_footer.css" />
         <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/overview.css" />

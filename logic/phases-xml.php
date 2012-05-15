@@ -11,9 +11,9 @@ else
 
 $result = null;
 if($user == 'administrator')
-    $result = $dbh->query("SELECT position, pos_x, pos_y FROM wardrobe A JOIN phase B ON(A.phase = B.id)")->fetchAll(PDO::FETCH_ASSOC);
+    $result = $dbh->query("SELECT position, pos_x, pos_y, phase FROM wardrobe A JOIN phase B ON(A.phase = B.id)")->fetchAll(PDO::FETCH_ASSOC);
 else {
-    $stm = $dbh->prepare("SELECT wardrobe AS position, pos_x, pos_y FROM (SELECT wardrobe, phase FROM machine A JOIN wardrobe B ON(A.wardrobe = B.position) WHERE responsible=?) C JOIN phase D ON(C.phase=D.id);");
+    $stm = $dbh->prepare("SELECT wardrobe AS position, pos_x, pos_y, phase FROM (SELECT wardrobe, phase FROM machine A JOIN wardrobe B ON(A.wardrobe = B.position) WHERE responsible=?) C JOIN phase D ON(C.phase=D.id);");
     $stm->execute(array($_GET['user']));
     $result = $stm->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -31,6 +31,7 @@ foreach ($result as $connection) {
     
     $phase_tag->appendChild($xmlDoc->createElement("x", $connection['pos_x']));
     $phase_tag->appendChild($xmlDoc->createElement("y", $connection['pos_y']));
+    $phase_tag->appendChild($xmlDoc->createElement("id", $connection['phase']));
     
 }
 

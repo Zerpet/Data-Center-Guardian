@@ -19,11 +19,6 @@ if(isset($_SESSION['logged']) && $_SESSION['logged'] === TRUE) {
     <body>
         <?php include("includes/header.php"); ?>
         <div id="login_page">
-            <!--<ul class="leftmenu">
-                <li id="gant"  onclick="showHide('gant')"></li>
-                <li id="gauge" onclick="showHide('gauge')"></li>
-                <li id="line" onclick="showHide('line')"></li>
-            </ul>-->
             <div id="login_form">
                 <form action="https://163.117.142.145/pfc/logic/check_login.php" name="login_form" method="post">
                     Username<br/>

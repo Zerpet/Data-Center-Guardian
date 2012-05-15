@@ -13,7 +13,7 @@ var HORIZONTAL_MID = BOX_X + BOX_WIDTH/2;
 var VERTICAL_MID = BOX_Y + BOX_HEIGHT/2;
 var WAR_HEIGHT = 80;
 var WAR_MARGIN = 5;
-var maxTextWidth = 12;
+var MAX_TEXT_WIDTH = 12;
 
 /*
  * Position Y of wardrobe's connectors
@@ -46,7 +46,7 @@ function drawBoxes() {
     var c=document.getElementById("boxes");
     var ctx=c.getContext("2d");
     
-    ctx.font="normal 12px sans-serif"
+    ctx.font="normal 12px sans-serif";
     
     
     //Drawing first horizontal line of boxes
@@ -55,42 +55,42 @@ function drawBoxes() {
     fill_stroke(ctx);
     ctx.closePath();
     //Drawing now the number of the phase 4
-    ctx.strokeText("4", BOX_WIDTH/2 + BOX_X, BOX_HEIGHT+15 + BOX_Y, maxTextWidth);
+    ctx.strokeText("4", BOX_WIDTH/2 + BOX_X, BOX_HEIGHT+15 + BOX_Y, MAX_TEXT_WIDTH);
     
     
     ctx.beginPath();    //Gonna draw now the rest of horizontal phases
+    ctx.fillStyle = "#000000";
     var i;
     for(i = 1; i < 5; i++) {
         ctx.rect(BOX_X + i*(BOX_MARGIN + BOX_WIDTH), BOX_Y, BOX_WIDTH, BOX_HEIGHT);
+        fill_stroke(ctx);
         //Numbers from 5 to 8
-        ctx.strokeText(i+4, i*(BOX_WIDTH + BOX_MARGIN) + BOX_WIDTH/2 + BOX_X, BOX_HEIGHT+15 + BOX_Y, maxTextWidth);
+        ctx.strokeText(i+4, i*(BOX_WIDTH + BOX_MARGIN) + BOX_WIDTH/2 + BOX_X, BOX_HEIGHT+15 + BOX_Y, MAX_TEXT_WIDTH);
     }
-    ctx.fillStyle = "#000000";
-    fill_stroke(ctx);
+    
     ctx.closePath();
 
     
     //Drawing left vertical line of boxes
     ctx.beginPath();
-    
+    ctx.fillStyle= "#CCCCCC";
     for(i = 0; i < 3; i++) {
         ctx.rect(BOX_X - BOX_WIDTH/2, BOX_Y + BOX_HEIGHT + PADDING + i*(BOX_HEIGHT + BOX_MARGIN), BOX_WIDTH, BOX_HEIGHT);
-        
-        ctx.strokeText(3 - i, BOX_X + 25, BOX_Y + BOX_HEIGHT + PADDING + 25 + i*(BOX_HEIGHT + BOX_MARGIN), maxTextWidth);
+        fill_stroke(ctx);
+        ctx.strokeText(3 - i, BOX_X + 25, BOX_Y + BOX_HEIGHT + PADDING + 25 + i*(BOX_HEIGHT + BOX_MARGIN), MAX_TEXT_WIDTH);
     }
-    ctx.fillStyle= "#CCCCCC";
-    fill_stroke(ctx);
+    
     ctx.closePath();
 
     //Drawing right vertical line of boxes
     ctx.beginPath();
+    ctx.fillStyle= "#FFFFFF";
     for(i = 0; i < 3; i++) {
         ctx.rect(BOX_X + (BOX_WIDTH + BOX_MARGIN)*4 + 14, BOX_Y + BOX_HEIGHT + PADDING + i*(BOX_HEIGHT + BOX_MARGIN), BOX_WIDTH, BOX_HEIGHT);
-        
-        ctx.strokeText(9+i, BOX_X + (BOX_WIDTH + BOX_MARGIN)*4, BOX_Y + BOX_HEIGHT + PADDING + 25 + i*(BOX_HEIGHT + BOX_MARGIN), maxTextWidth);
+        fill_stroke(ctx);
+        ctx.strokeText(9+i, BOX_X + (BOX_WIDTH + BOX_MARGIN)*4, BOX_Y + BOX_HEIGHT + PADDING + 25 + i*(BOX_HEIGHT + BOX_MARGIN), MAX_TEXT_WIDTH);
     }
-    ctx.fillStyle= "#FFFFFF";
-    fill_stroke(ctx);
+    
     ctx.closePath();
 }
 
@@ -112,19 +112,21 @@ function drawLines(user) {
     
     var connections = xmlDoc.getElementsByTagName("connection");
     
-//    console.log(xmlDoc.getElementsByTagName("wardrobe")[6].firstChild.nodeValue);
+    
     ctx.beginPath();
 
     for(i = 0; i < connections.length; i++) {
         
         var tmp;
-        if((tmp = xmlDoc.getElementsByTagName("wardrobe")[i].firstChild.nodeValue) < 200)
+        if((tmp = xmlDoc.getElementsByTagName("wardrobe")[i].firstChild.nodeValue) < 200) 
             ctx.moveTo(0, WARDROBE_POSITION[tmp % 101]);
         else 
             ctx.moveTo(420, WARDROBE_POSITION[tmp % 201]);
         
         ctx.lineTo(xmlDoc.getElementsByTagName("x")[i].firstChild.nodeValue, xmlDoc.getElementsByTagName("y")[i].firstChild.nodeValue);
-
+        
+        sessionStorage.setItem(tmp, xmlDoc.getElementsByTagName("id")[i].firstChild.nodeValue);
+        
     }
     
     ctx.stroke();
