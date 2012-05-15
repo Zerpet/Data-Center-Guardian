@@ -64,6 +64,7 @@ $dbh = NULL;
                         $tmp = 20 * $machine['num_u'];
                         
                         print("<tr>");
+                        print('<td style="height: ' . $tmp . 'px">' . $i . '</td>');
                         print('<td class="' . $machine['color'] . '-machine" style="height: ' . $tmp . 'px">' . $machine['name'] . '</td>');
                         print("</tr>");
                         
@@ -77,10 +78,12 @@ $dbh = NULL;
                     //We only print a gap for every 10 positions. Later on this could be expanded using a button
                     if($lastgaps++ % 10 == 0) {
                         print("<tr>");
+                        print('<td style="height: 20px">' . $i . '</td>');
                         print("<td class=\"gap\" style=\"height: 20px\"></td>");
                         print("</tr>");
                     } else {
                         print("<tr class=\"compact\" style=\" display: none;\">");
+                        print('<td style="height: 20px">' . $i . '</td>');
                         print("<td class=\"gap\" style=\"height: 20px;\"></td>");
                         print("</tr>");
                     }
