@@ -1,4 +1,16 @@
 <?php
+/*
+ * Required fields:
+    * name
+    * rack
+    * ip1
+    * ip2
+    * ip3
+    * iface1
+    * iface2
+    * iface3
+    * connected
+ */
 require 'check_if_logged.php';
 require '../includes/connect_DB.php';
 

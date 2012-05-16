@@ -110,7 +110,7 @@ function edit_rack() {
  */
 function validate_input(iface, ip) {
     
-    if(!typeof(iface) === "number" || iface < 0) 
+    if(!typeof(iface) === "number" || iface < 0 || iface > 50) 
         return false;
     
     
@@ -151,6 +151,9 @@ function commit_rack() {
         
         if(validate_input(pairs[i][0], pairs[i][1])) {
             post_string = post_string.concat("&iface" + (i+1) + "=" + pairs[i][0], "&ip" + (i+1) + "=" + pairs[i][1]);
+        } else {
+            alert("Interface or input are not a valid input");
+            return;
         }
     }
     
@@ -168,9 +171,6 @@ function commit_rack() {
         function() {
            $('body').css("cursor", 'auto'); 
         }, "text")
-        .error(function() {
-            //TODO error case
-        })
         .success(function(data) {
             
             $.post("https://163.117.142.145/pfc/logic/wardrobe_view.php", "rac="+data, 
@@ -178,5 +178,15 @@ function commit_rack() {
                 $('#rac-view').html(html);
             }, "html");
         });
+    
+}
+
+
+function add_new_rack(id) {
+    
+    $.post("https://163.117.142.145/pfc/logic/add_rack.php", "rack=" + id, 
+    function(data) {
+        $('#rac-view').html(data);
+    }, "html");
     
 }

@@ -91,6 +91,12 @@ a {
     background-color: #3399ff; 
 }
 
+.red.button, .red.button:visited { 
+    background-color: #e62727; 
+}
+.red.button:hover { 
+    background-color: #cf2525; 
+}
 
 
 

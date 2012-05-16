@@ -78,7 +78,7 @@ $dbh = NULL;
                     //We only print a gap for every 10 positions. Later on this could be expanded using a button
                     if($lastgaps++ % 10 == 0) {
                         print("<tr>");
-                        print('<td style="height: 20px">' . $i . '</td>');
+                        print('<td style="width: 20px">' . $i . '</td>');
                         print("<td class=\"gap\" style=\"height: 20px\"></td>");
                         print("</tr>");
                     } else {
@@ -97,6 +97,7 @@ $dbh = NULL;
 </div>
 
 <div id="rac-info">
+    <h2>Network</h2>
     <ul id="rac-iface" style="margin-bottom: 20px;">
         <?php 
         if($result['iface1'] !== NULL)
@@ -119,4 +120,6 @@ $dbh = NULL;
     
     <button class="medium button marine" type="button" name="expand" onclick="expand_compact_rac();">Expand RAC</button>
     <button class="medium button marine" type="button" name="back" onclick="hide_view('rac-view', 'boxes');">Hide this view</button>
+    <button class="medium button red" type="button" name="delete" onclick="alert('DANGER!');">Delete this RACK</button>
+    
 </div>

@@ -1,7 +1,7 @@
 <?php require("./logic/check_if_logged.php");
 function print_wardrobe(array $info, $position) {
     if ($info['name'] == "unnamed") { //If there are no wardrobe, print it shady
-        print('<div class="disabled_wardrobe">');
+        print('<div class="disabled_wardrobe" onclick="add_new_rack(\'' . $position . '\')">');
         print('<br/>');
     } else {
         print('<div class="wardrobe" onclick="show_rac(\'' . $position . '\')">');
@@ -71,7 +71,7 @@ function print_wardrobe(array $info, $position) {
                     $stm->execute(array($_SESSION['user']));
                     $rs = $stm->fetchAll(PDO::FETCH_NUM);   //Save result for later use
                     
-                    // TODO optimize for scalability
+                    // Optimize for scalability
                     $sql = 'SELECT name, iface1, ip1, iface2, ip2, iface3, ip3 FROM wardrobe WHERE position=?';
                     $stm = $dbh->prepare($sql);
                     
