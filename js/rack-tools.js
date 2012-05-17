@@ -186,7 +186,14 @@ function add_new_rack(id) {
     
     $.post("https://163.117.142.145/pfc/logic/add_rack.php", "rack=" + id, 
     function(data) {
-        $('#rac-view').html(data);
+        $('#boxes').hide('slow');
+        $('#rac-view').show('slow', function() {
+            $('#rac-view').html(data);
+            $('#rac-view').removeClass();
+            $('#rac-view').addClass(id);
+            $('#phases option:nth-child(' + sessionStorage.getItem(id) + ')').attr("selected", "selected");
+        });
+        
     }, "html");
     
 }

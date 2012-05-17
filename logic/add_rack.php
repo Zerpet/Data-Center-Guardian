@@ -6,7 +6,7 @@ if(isset($_POST['rack']) === FALSE) {
 }
 ?>
 
-<input id="war-title" type="text" name="name" value="Unnamed" form="rack-form" required="required" />
+<input id="war-title" style="margin-left: 15%;" type="text" name="name" value="Unnamed" form="rack-form" required="required" />
 <div style="float: left;">
     <table id="rac-schema">
         <tbody>
@@ -24,7 +24,6 @@ if(isset($_POST['rack']) === FALSE) {
 
 <div id="rac-info">
     <h2>Network</h2>
-    <!-- action="logic/rack_commit.php"  -->
     <form id="rack-form" action="pfc/logic/rack_commit.php" style="margin-bottom: 20px; margin-top: 10px;">
         Interface -> IP<br>
         <input type="number" name="iface1" style="width: 40px;" /> 
@@ -50,6 +49,6 @@ if(isset($_POST['rack']) === FALSE) {
         </p>
     </form>
     <button id="save_rack" class="medium button marine" type="submit" name="rack" value="<?php echo $_POST['rack'] ?>" formmethod="post" form="rack-form">Save RACK</button>
-    <button id="discard_rack" class="medium button marine" type="button" name="discard" onclick="">Discard RACK</button>
+    <button id="discard_rack" class="medium button marine" type="button" name="discard" onclick="hide_view('rac-view', 'boxes')">Discard RACK</button>
 
 </div>
