@@ -133,6 +133,7 @@ $params = array
 
 $stm->execute($params);
 
+//I will use this number later to re-paint rack view
 print $post['rack'];
 
 $dbh = NULL;

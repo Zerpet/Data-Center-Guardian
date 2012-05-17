@@ -120,6 +120,7 @@ $dbh = NULL;
     
     <button class="medium button marine" type="button" name="expand" onclick="expand_compact_rac();">Expand RAC</button>
     <button class="medium button marine" type="button" name="back" onclick="hide_view('rac-view', 'boxes');">Hide this view</button>
-    <button class="medium button red" type="button" name="delete" onclick="alert('DANGER!');">Delete this RACK</button>
+    <!-- Go back here. Need to cascade delete machines -->
+    <button class="medium button red" type="button" name="delete" onclick="delete_rack('<?php echo $_POST['rac'] ?>');">Delete this RACK</button>
     
 </div>

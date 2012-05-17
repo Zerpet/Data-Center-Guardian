@@ -38,8 +38,7 @@ function cancel_rack_editing() {
     $('#rac-info').children("p").remove();
     $('#phases').remove();
     
-    $('input[name=rack-title]').remove();
-    $('#war-title').show();
+    $('#war-title').html('<p id="war-title">Común</p>');
     
 }
 
@@ -100,8 +99,8 @@ function edit_rack() {
     
     $('#rac-iface').after(phase_connection);
     
-    $('#war-title').hide();
-    $('#war-title').after('<input type="text" value="' + $('#war-title').text() + '" name="rack-title" />');
+    $('#war-title').html('<input type="text" value="' + $('#war-title').text() + '" name="rack-title" />');
+//    $('#war-title').after('<input type="text" value="' + $('#war-title').text() + '" name="rack-title" />');
 }
 
 /**
@@ -195,5 +194,27 @@ function add_new_rack(id) {
         });
         
     }, "html");
+    
+}
+
+/*
+ * * name
+    * rack
+    * ip1
+    * ip2
+    * ip3
+    * iface1
+    * iface2
+    * iface3
+    * connected
+ */
+function delete_rack(id) {
+    var post_string = "name=unnamed&rack=" + id + "&ip1=&ip2=&ip3=&iface1=&iface2=&iface3=&connected=" + sessionStorage.getItem(id);
+    
+    //Time to ajax
+    $.post("https://163.117.142.145/pfc/logic/rack_commit.php", post_string, 
+        function() {
+           hide_view('rac-view', 'boxes');
+        }, "text");
     
 }

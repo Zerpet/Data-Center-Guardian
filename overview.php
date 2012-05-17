@@ -1,7 +1,7 @@
 <?php require("./logic/check_if_logged.php");
 function print_wardrobe(array $info, $position) {
     if ($info['name'] == "unnamed") { //If there are no wardrobe, print it shady
-        print('<div class="disabled_wardrobe" onclick="add_new_rack(\'' . $position . '\')">');
+        print('<div class="disabled_wardrobe" onclick="add_new_rack(\'' . $position . '\');">');
         print('<br/>');
     } else {
         print('<div class="wardrobe" onclick="show_rac(\'' . $position . '\')">');
