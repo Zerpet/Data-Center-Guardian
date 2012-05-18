@@ -33,9 +33,11 @@ function print_wardrobe(array $info, $position) {
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/canvas_boxes.js"></script>
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/show_things.js"></script>
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/rack-tools.js"></script>
+        <script type="text/javascript" src="https://163.117.142.145/pfc/js/machine-tools.js"></script>
         <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/main.css" />
         <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/header_footer.css" />
         <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/overview.css" />
+        <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/jquery-ui-1.8.19.cupertino.css" />
     </head>
     <body onload="drawLines(<?php print("'" . $_SESSION['user'] . "'") ?>); drawBoxes();">
         <?php include("includes/header.php"); ?>

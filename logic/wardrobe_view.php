@@ -58,14 +58,20 @@ $dbh = NULL;
             for($i = 42; $i > 0; $i--) {    //Error checking about overlaped/overflowed/underflowed machines must be done in MySQL
                 
                 $found = FALSE;
+                $avoid = FALSE;
                 
                 foreach ($schema as $machine) {
+                    
+                    for($a = 1; $a < $machine['num_u']; $a++)   //We need this check to avoid painting slots occupied by multiple U machines
+                        if($machine['starting_pos'] + $machine['num_u'] - $a === $i)
+                            $avoid = TRUE;
+                    
                     if($machine['starting_pos'] == $i) {
                         $tmp = 20 * $machine['num_u'];
                         
                         print("<tr>");
                         print('<td style="height: ' . $tmp . 'px">' . $i . '</td>');
-                        print('<td class="' . $machine['color'] . '-machine" style="height: ' . $tmp . 'px">' . $machine['name'] . '</td>');
+                        print('<td id="' . $i . '" class="' . $machine['color'] . '-machine" style="height: ' . $tmp . 'px" onclick="show_machine(\'' . $machine['name'] . '\', \'' . $_SESSION['user'] .'\', \'' . $i .'\');">' . $machine['name'] . '</td>');
                         print("</tr>");
                         
                         $found = TRUE;
@@ -73,7 +79,10 @@ $dbh = NULL;
                         break;
                     }
                 }
-
+                
+                if($avoid === TRUE)
+                    continue;
+                
                 if(!$found) {
                     //We only print a gap for every 10 positions. Later on this could be expanded using a button
                     if($lastgaps++ % 10 == 0) {
