@@ -30,10 +30,17 @@ function print_wardrobe(array $info, $position) {
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Overview</title>
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="https://163.117.142.145/pfc/js/jquery-ui-1.8.19.min.js"></script>
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/canvas_boxes.js"></script>
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/show_things.js"></script>
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/rack-tools.js"></script>
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/machine-tools.js"></script>
+        <script type="text/javascript">
+            var $dialog;
+            $(function() {
+		$dialog = $("#machine-view").dialog({ resizable: false, minWidth: 400, autoOpen: false });
+            });
+        </script>
         <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/main.css" />
         <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/header_footer.css" />
         <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/overview.css" />
@@ -96,7 +103,36 @@ function print_wardrobe(array $info, $position) {
                 }
                 ?>
             </div>
-            <div id="rac-view" style="display: none;"></div>
+            <div id="rac-view" style="display: none;">
+                
+                <div id="machine-view" title="Minecraft Server">
+                    <div id="machine-view-content" class="ui-dialog-content ui-widget-content">
+                        <ul id="responsible-information">
+                            <li style="list-style:disc outside none;"></li>
+                            <li class="machine-tabed-li"></li>
+                            <li class="machine-tabed-li"></li>
+                            <li class="machine-tabed-li"></li>
+                        </ul>
+                        <div id="machine-information" class="ui-dialog-content ui-widget-content">
+                            <p class="machine-paragraph"></p>
+                            <p class="machine-paragraph"></p>
+                            <p class="machine-paragraph"></p>
+                            <p class="machine-paragraph"></p>
+                        </div>
+                        <br style="clear: both;">
+                        <p class="machine-paragraph machine-notes"></p>
+
+                        <div id="chart_div">
+
+                        </div>
+                        <div id="machine-buttons">
+                            <button class="medium button blue" type="button" name="edit" style="margin-left: 5%;">Edit</button>
+                            <button class="medium button red" type="button" name="delete" style="margin-left: 5%;">Delete</button>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
             <div style="float:right;">
                 <!-- Right side -->
                 <?php
@@ -131,6 +167,7 @@ function print_wardrobe(array $info, $position) {
                 ?>
             </div>
             <canvas id="boxes" width="420" height="522">Your browser does not support canvas element</canvas>
+            <div id="machine-view" style="display: none;"></div>
         </div>
         <br style="clear: both;" />
 <?php include("includes/footer.php"); ?>
