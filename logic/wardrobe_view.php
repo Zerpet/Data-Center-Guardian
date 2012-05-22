@@ -71,7 +71,7 @@ $dbh = NULL;
                         
                         print("<tr>");
                         print('<td style="height: ' . $tmp . 'px">' . $i . '</td>');
-                        print('<td id="' . $i . '" class="' . $machine['color'] . '-machine" style="height: ' . $tmp . 'px" onclick="show_machine(\'' . $machine['name'] . '\', \'' . $_SESSION['user'] .'\', \'' . $i .'\');">' . $machine['name'] . '</td>');
+                        print('<td id="' . $i . '" class="' . $machine['color'] . '-machine" style="height: ' . $tmp . 'px" onclick="open_machine_dialog(\'' . $machine['name'] . '\', \'' . $_SESSION['user'] .'\', \'' . $i .'\');">' . $machine['name'] . '</td>');
                         print("</tr>");
                         
                         $found = TRUE;

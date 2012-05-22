@@ -36,10 +36,7 @@ function print_wardrobe(array $info, $position) {
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/rack-tools.js"></script>
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/machine-tools.js"></script>
         <script type="text/javascript">
-            var $dialog;
-            $(function() {
-		$dialog = $("#machine-view").dialog({ resizable: false, minWidth: 400, autoOpen: false });
-            });
+            
         </script>
         <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/main.css" />
         <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/header_footer.css" />
@@ -125,10 +122,12 @@ function print_wardrobe(array $info, $position) {
                         <div id="chart_div">
 
                         </div>
+                        <?php if($_SESSION['user'] === 'administrator') { ?>
                         <div id="machine-buttons">
-                            <button class="medium button blue" type="button" name="edit" style="margin-left: 5%;">Edit</button>
-                            <button class="medium button red" type="button" name="delete" style="margin-left: 5%;">Delete</button>
+                            <button class="medium button blue" type="button" name="edit" style="margin-left: 5%;" onclick="">Edit</button>
+                            <button class="medium button red" type="button" name="delete" style="margin-left: 5%;" onclick="">Delete</button>
                         </div>
+                        <?php } ?>
                     </div>
                 </div>
                 
