@@ -102,7 +102,7 @@ function print_wardrobe(array $info, $position) {
             </div>
             <div id="rac-view" style="display: none;">
                 
-                <div id="machine-view" title="Minecraft Server">
+                <div id="machine-view">
                     <div id="machine-view-content" class="ui-dialog-content ui-widget-content">
                         <ul id="responsible-information">
                             <li style="list-style:disc outside none;"></li>
@@ -115,17 +115,20 @@ function print_wardrobe(array $info, $position) {
                             <p class="machine-paragraph"></p>
                             <p class="machine-paragraph"></p>
                             <p class="machine-paragraph"></p>
+                            <p class="machine-paragraph"></p>
+                            <p class="machine-paragraph"></p>
                         </div>
                         <br style="clear: both;">
                         <p class="machine-paragraph machine-notes"></p>
-
+                        
+                        
                         <div id="chart_div">
 
                         </div>
                         <?php if($_SESSION['user'] === 'administrator') { ?>
                         <div id="machine-buttons">
-                            <button class="medium button blue" type="button" name="edit" style="margin-left: 5%;" onclick="">Edit</button>
-                            <button class="medium button red" type="button" name="delete" style="margin-left: 5%;" onclick="">Delete</button>
+                            <button class="medium button blue" type="button" name="edit" style="margin-left: 5%;" onclick="edit_machine()">Edit</button>
+                            <button class="medium button red" type="button" name="delete" style="margin-left: 5%;" onclick="alert('Not implemented yet!')">Delete</button>
                         </div>
                         <?php } ?>
                     </div>
