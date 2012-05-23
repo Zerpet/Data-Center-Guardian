@@ -1,21 +1,7 @@
 <?php
 require 'check_if_logged.php';
 require '../includes/connect_DB.php';
-
-class machine {
-    public $name;
-    public $responsible;
-    public $os;
-    public $ip;
-    public $color;
-    public $type;
-    public $notes;
-    public $start;
-    public $us;
-    public $phone;
-    public $email;
-    public $office;
-}
+include '../includes/machine_class.php';
 
 $filters = array(
     "name" => array 
@@ -52,8 +38,8 @@ if(in_array(FALSE, $post, TRUE) === TRUE) {
 
 $sql = "";
 if($_SESSION['user'] == "administrator") {
-    $sql = "SELECT name, responsible, os, ip, color, type, notes, starting_pos, num_u, email, office, phone FROM allowed_users A\n"
-    . " JOIN (SELECT name AS username, responsible, os, ip, color, type, notes, starting_pos, num_u\n"
+    $sql = "SELECT machinename AS name, responsible, os, ip, color, type, notes, starting_pos, num_u, email, office, phone FROM allowed_users A\n"
+    . " JOIN (SELECT name AS machinename, responsible, os, ip, color, type, notes, starting_pos, num_u\n"
     . " FROM machine WHERE name = ? AND starting_pos = ?) B\n"
     . " ON (A.name = B.responsible)";
     
