@@ -50,7 +50,7 @@ $dbh = NULL;
 
 
 <p id="war-title"><?php echo $result['name'] ?></p>
-<div style="float: left;">
+<div style="float: left; width: 50%;">
     <table id="rac-schema">
         <tbody>
             <?php
