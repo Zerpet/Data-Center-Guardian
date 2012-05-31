@@ -15,9 +15,17 @@ if(!isset($_POST['rac'])) {
     die();
 }
 
+$post = filter_var($_POST['rac'], FILTER_VALIDATE_INT);
+
+if($post === FALSE) {
+    //TODO send to error frame
+    echo 'Invalid input POST';
+    die();
+}
+
 //Query RACK information
 $stm = $dbh->prepare("SELECT name, iface1, iface2, iface3, ip1, ip2, ip3 FROM wardrobe WHERE position=?");
-$stm->execute(array($_POST['rac']));
+$stm->execute(array($post));
 
 $result = $stm->fetch(PDO::FETCH_ASSOC);
 if($result === FALSE) {
@@ -29,10 +37,10 @@ if($result === FALSE) {
 //Query machines information
 if($_SESSION['user'] == "administrator") {
     $stm = $dbh->prepare("SELECT name, color, starting_pos, num_u FROM machine WHERE wardrobe=?");
-    $stm->execute(array($_POST['rac']));
+    $stm->execute(array($post));
 } else {
     $stm = $dbh->prepare("SELECT name, color, starting_pos, num_u FROM machine WHERE responsible=? AND wardrobe=?");
-    $stm->execute(array($_SESSION['user'], $_POST['rac']));
+    $stm->execute(array($_SESSION['user'], $post));
 }
 
 
@@ -123,13 +131,13 @@ $dbh = NULL;
     </ul>
     
     <?php if($_SESSION['user'] == "administrator") { ?>
-    <button id="add_machine" class="medium button marine" type="button" name="add" onclick="alert('Not implemented yet!');">Add Machine</button>
+    <button id="add_machine" class="medium button marine" type="button" name="add" onclick="add_new_machine(<?php echo '\'' . $post . '\'' ?>);">Add Machine</button>
     <button id="edit_rack" class="medium button marine" type="button" name="edit" onclick="edit_rack();">Edit RACK</button>
     <?php } ?>
     
     <button class="medium button marine" type="button" name="expand" onclick="expand_compact_rac();">Expand RAC</button>
     <button class="medium button marine" type="button" name="back" onclick="hide_view('rac-view', 'boxes');">Hide this view</button>
-    <!-- Go back here. Need to cascade delete machines -->
+    <?php if($_SESSION['user'] == "administrator") { ?>
     <button class="medium button red" type="button" name="delete" onclick="delete_rack('<?php echo $_POST['rac'] ?>');">Delete this RACK</button>
-    
+    <?php } ?>
 </div>

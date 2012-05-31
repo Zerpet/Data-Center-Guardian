@@ -12,6 +12,7 @@ if(isset($_SESSION['logged']) && $_SESSION['logged'] === TRUE) {
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login</title>
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="https://163.117.142.145/pfc/js/filters.js"></script>
         <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/main.css" />
         <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/header_footer.css" />
         <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/loginpage.css" />

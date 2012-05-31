@@ -74,6 +74,7 @@ button:focus {
     border-style: solid;
     border-width: 1px;
     background-color: white;
+    cursor: url("https://163.117.142.145/pfc/images/magnifyingglass.gif"), pointer;
 }
 
 .Dark-machine {
@@ -81,6 +82,7 @@ button:focus {
     border-style: solid;
     border-width: 1px;
     background-color: grey;
+    cursor: url("https://163.117.142.145/pfc/images/magnifyingglass.gif"), pointer;
 }
 
 .gap {

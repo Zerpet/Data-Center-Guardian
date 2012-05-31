@@ -103,25 +103,6 @@ function edit_rack() {
 //    $('#war-title').after('<input type="text" value="' + $('#war-title').text() + '" name="rack-title" />');
 }
 
-/**
- * This function is usefull to validate the data from rack view in editable-mode.
- * It recevies two inputs, they should be integer numbers
- */
-function validate_input(iface, ip) {
-    
-    if(!typeof(iface) === "number" || iface < 0 || iface > 50) 
-        return false;
-    
-    
-    if(!typeof(ip) === "number" && (ip !== "___" || ip !== "")) //The interface may be open
-        return false;
-    
-    
-    if(ip < 0 || ip > 255) 
-        return false;
-    
-    return true;
-}
 
 /**
  * This function gets the values from the inputs of rack-view and prepares a
@@ -198,17 +179,20 @@ function add_new_rack(id) {
 }
 
 /*
- * * name
-    * rack
-    * ip1
-    * ip2
-    * ip3
-    * iface1
-    * iface2
-    * iface3
-    * connected
+ * name
+ * rack
+ * ip1
+ * ip2
+ * ip3
+ * iface1
+ * iface2
+ * iface3
+ * connected
  */
 function delete_rack(id) {
+    if(confirm("This action cannot be undone! Do you want to proceed?") === false)
+        return;
+    
     var post_string = "name=unnamed&rack=" + id + "&ip1=&ip2=&ip3=&iface1=&iface2=&iface3=&connected=" + sessionStorage.getItem(id);
     
     //Time to ajax

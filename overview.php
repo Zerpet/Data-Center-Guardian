@@ -34,6 +34,7 @@ function print_wardrobe(array $info, $position) {
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/jquery-1.7.2.min.js"></script>
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/jquery-ui-1.8.19.min.js"></script>
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/canvas_boxes.js"></script>
+        <script type="text/javascript" src="https://163.117.142.145/pfc/js/filters.js"></script>
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/show_things.js"></script>
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/rack-tools.js"></script>
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/machine-tools.js"></script>
@@ -181,10 +182,10 @@ function print_wardrobe(array $info, $position) {
                 </select><br>
 
                 <label>Notes </label><br>
-                <textarea maxlength="255" name="notes" form="machine-form" class="machine-paragraph">
+                <textarea maxlength="255" name="notes" form="machine-form" class="machine-paragraph" onchange="validate_notes(this.value);">
 
                 </textarea><br>
-
+                
                 <b>Starts? </b>
                 <input type="number" required="required" max="42" min="0" maxlength="2" style="display: inline; width: 1cm;" value="" name="start" class="machine-paragraph"><br>
                 <b>Length? </b>

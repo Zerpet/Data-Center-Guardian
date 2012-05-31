@@ -42,12 +42,8 @@ function show_rac(position) {
  * parameter is optional and should be an element ID to show.
  */
 function hide_view(hideme, showme) {
-    if(hideme === undefined) {
-        alert("No present ID to hide"); //TODO delete debug alert
-        return;
-    }
-    
-    $('#' + hideme).hide(400);
+    if(hideme !== undefined) 
+        $('#' + hideme).hide(400);
     
     if(showme !== undefined)
         $('#' + showme).show('fast');
