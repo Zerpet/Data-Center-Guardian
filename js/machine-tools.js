@@ -7,14 +7,14 @@ $(function() {
         event.preventDefault();
         
         var valid = true;
-        event.target.elements[3].style.border = "0px #FF0000 solid";
+        event.target.elements[3].style.border = "1px #000000 solid";
         valid = valid && validate_complete_ip(event.target.elements[3].value);
         
         if(valid === false) {
             event.target.elements[3].style.border = "1px #FF0000 solid";
             return valid;
         }
-        event.target.elements[4].style.border = "0px #FF0000 solid";
+        event.target.elements[4].style.border = "1px #000000 solid";
         valid = valid && validate_color(event.target.elements[4].value);
         
         if(valid === false) {
@@ -22,7 +22,7 @@ $(function() {
             return valid;
         }
             
-        event.target.elements[5].style.border = "0px #FF0000 solid";
+        event.target.elements[5].style.border = "1px #000000 solid";
         valid = valid && validate_type(event.target.elements[5].value);
         
         if(valid === false) {
@@ -30,7 +30,7 @@ $(function() {
             return valid;
         }
         
-        event.target.elements[7].style.border = "0px #FF0000 solid";
+        event.target.elements[7].style.border = "1px #000000 solid";
         valid = valid && validate_starts(event.target.elements[7].value);
         
         if(valid === false) {
@@ -38,7 +38,7 @@ $(function() {
             return valid;
         }
         
-        event.target.elements[8].style.border = "0px #FF0000 solid";
+        event.target.elements[8].style.border = "1px #000000 solid";
         valid = valid && validate_us(event.target.elements[8].value);
         
         if(valid === false) {

@@ -1,11 +1,51 @@
-<?php require("./logic/check_if_logged.php"); ?>
-<!-- PEND!!! -->
+<?php 
+require("./logic/check_if_logged.php"); 
+require("includes/connect_DB.php");
+include "includes/consumptionRecordClass.php";
+
+$RECORDS = null;
+
+function getLastConsumptionSet() {
+    //Infernal select to obtain, for each RACK, the last consumption record
+    $sql = "SELECT phase_id, electric_current, group_name, rack_name, ocupation FROM "
+        . "(SELECT cr.rack, cr.electric_current FROM `consumption_record` cr "
+            . "JOIN (SELECT rack , max(`record_timestamp`) maximo "
+                . "FROM `consumption_record` group by rack) max "
+                . "ON (max.maximo = cr.`record_timestamp` and max.`rack` = cr.`rack`) "
+        . ") A "
+        . "JOIN (SELECT id AS phase_id, group_name, rack_id, C.name AS rack_name, ocupation FROM phase B "
+                . "JOIN (SELECT SUM(num_u)/42*100 AS ocupation, position AS rack_id, name, phase FROM wardrobe E "
+                    . "JOIN (SELECT wardrobe, num_u FROM machine) F "
+                    . "ON (E.position= F.wardrobe) WHERE name != 'unnamed' GROUP BY position "
+            . ") C " 
+            . "ON (B.id = C.phase) "
+        . ") D ON (A.rack = D.rack_id)";
+    
+    $stm = prepareStatement($sql);
+    
+    if($stm->execute() === FALSE) {
+        //TODO send to error page
+        echo "Execution of query failed";
+        die();
+    }
+    
+    $result = $stm->fetchAll(PDO::FETCH_CLASS, "consumption_record");
+//    echo json_encode($result);
+    return $result;
+}
+
+$RECORDS = getLastConsumptionSet();
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Consumption</title>
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="https://163.117.142.145/pfc/js/jquery-ui-1.8.19.min.js"></script>
+        <script type="text/javascript" src="https://163.117.142.145/pfc/js/filters.js"></script>
+        <script type="text/javascript" src="https://163.117.142.145/pfc/js/show_things.js"></script>
         <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/main.css" />
         <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/header_footer.css" />
         <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/consumption.css" />
@@ -16,21 +56,143 @@
             <p>Consumption</p>
         </div>
         <?php include("includes/leftmenu.php"); ?>
-        <div class="content" style="height: 771px;">
-            <div style="float: left;">
+        <div class="content">
+            <!-- Left side -->
+            <div id="left-phase-container">
                 <div class="phase" id="phaseR">
                     <!-- Title -->
-                    <ol>
-                        <li></li> 
-                        <li></li> 
-                        <li>Sintonia</li>
-                        <li>Scalab</li>
+                    <p class="title">Phase R</p>
+                    <ol class="record_name">
+                        <?php 
+                        for($i = 1; $i < 5; $i++) {
+                            $found = FALSE;
+                            foreach($RECORDS as $r) {
+                                if($r->phase_id == $i) {
+                                    echo '<li class="phase_entry">' . $r->rack_name .'</li>';
+                                    $found = TRUE;
+                                    unset($r);
+                                    break;
+                                }
+                            }
+                            if(!$found)
+                                echo '<li class="phase_entry"></li>';
+                        }
+                        ?>
+<!--                        <li class="phase_entry"></li> 
+                        <li class="phase_entry">Scalab</li>-->
                     </ol>
+                    <ul class="record_data">
+                        <?php 
+                        for($i = 1; $i < 5; $i++) {
+                            $found = FALSE;
+                            foreach($RECORDS as $r) {
+                                if($r->phase_id == $i) {
+                                    echo '<li class="phase_entry">' . $r->electric_current . ' (' . $r->ocupation . '%)</li>';
+                                    $found = TRUE;
+                                    unset($r);
+                                    break;
+                                }
+                            }
+                            if(!$found)
+                                echo '<li class="phase_entry">(%)</li>';
+                        }
+                        ?>
+<!--                        <li>16.0 (%)</li>-->
+                    </ul>
+                </div>
+                <div class="phase" id="phaseT">
+                    <!-- Title -->
+                    <p class="title">Phase T</p>
+                    <ol class="record_name" start="9">
+                        <?php 
+                        for($i = 9; $i < 12; $i++) {
+                            $found = FALSE;
+                            foreach($RECORDS as $r) {
+                                if($r->phase_id == $i) {
+                                    echo '<li class="phase_entry">' . $r->rack_name . '</li>';
+                                    $found = TRUE;
+                                    unset($r);
+                                    break;
+                                }
+                            }
+                            if(!$found)
+                                echo '<li class="phase_entry"></li>';
+                        }
+                        ?>
+<!--                        <li class="phase_entry"></li> 
+                        <li class="phase_entry">Scalab</li>-->
+                    </ol>
+                    <ul class="record_data">
+                        <?php 
+                        for($i = 9; $i < 12; $i++) {
+                            $found = FALSE;
+                            foreach($RECORDS as $r) {
+                                if($r->phase_id == $i) {
+                                    echo '<li class="phase_entry">' . $r->electric_current . ' (' . $r->ocupation . '%)</li>';
+                                    $found = TRUE;
+                                    unset($r);
+                                    break;
+                                }
+                            }
+                            if(!$found)
+                                echo '<li class="phase_entry">(%)</li>';
+                        }
+                        ?>
+<!--                        <li>16.0 (%)</li>-->
+                    </ul>
                 </div>
             </div>
-            <div style="float: right;">
-                
+            <!-- Right side -->
+            <div id="right-phase-container">
+                <div class="phase" id="phaseS">
+                    <!-- Title -->
+                    <p class="title">Phase S</p>
+                    <ol class="record_name" start="5">
+                        <?php 
+                        for($i = 5; $i < 9; $i++) {
+                            $found = FALSE;
+                            foreach($RECORDS as $r) {
+                                if($r->phase_id == $i) {
+                                    echo '<li class="phase_entry">' . $r->rack_name . '</li>';
+                                    $found = TRUE;
+                                    unset($r);
+                                    break;
+                                }
+                            }
+                            if(!$found)
+                                echo '<li class="phase_entry"></li>';
+                        }
+                        ?>
+<!--                        <li class="phase_entry"></li> 
+                        <li class="phase_entry">Scalab</li>-->
+                    </ol>
+                    <ul class="record_data">
+                        <?php 
+                        for($i = 5; $i < 9; $i++) {
+                            $found = FALSE;
+                            foreach($RECORDS as $r) {
+                                if($r->phase_id == $i) {
+                                    echo '<li class="phase_entry">' . $r->electric_current . ' (' . $r->ocupation . '%)</li>';
+                                    $found = TRUE;
+                                    unset($r);
+                                    break;
+                                }
+                            }
+                            if(!$found)
+                                echo '<li class="phase_entry">(%)</li>';
+                        }
+                        ?>
+<!--                        <li>16.0 (%)</li>-->
+                    </ul>
+                </div>
+                <div class="phase" id="leyend">
+                    <p>Leyend</p>
+                    <ul>
+                        <li>Phase: RACK ...... Electric current (ocupation %)</li>
+                    </ul>
+                </div>
             </div>
+            <br style="clear: both;">
         </div>
         
         

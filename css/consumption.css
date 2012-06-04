@@ -13,15 +13,64 @@
     padding-top: 10px;
     padding-bottom: 10px;
     padding-right: 25px;
+    
+    background-image: linear-gradient(bottom, #E8F2FF 21%, #70A2E3 71%, #70A2E3 91%);
+    background-image: -o-linear-gradient(bottom, #E8F2FF 21%, #70A2E3 71%, #70A2E3 91%);
+    background-image: -moz-linear-gradient(bottom, #E8F2FF 21%, #70A2E3 71%, #70A2E3 91%);
+    background-image: -webkit-linear-gradient(bottom, #E8F2FF 21%, #70A2E3 71%, #70A2E3 91%);
+    background-image: -ms-linear-gradient(bottom, #E8F2FF 21%, #70A2E3 71%, #70A2E3 91%);
+    background-image: -webkit-gradient(
+            linear,
+            left bottom,
+            left top,
+            color-stop(0.21, #E8F2FF),
+            color-stop(0.71, #70A2E3),
+            color-stop(0.91, #70A2E3)
+    );
+    
+    width: 100%;
+    height: 100%;
 }
-/*
-ol {
-    position: relative;
-    left: 35%;
-}
-*/
 
-.button[name="consumption"] {
-    background-image: none;
-    background-color: #70a2e3;
+.phase p{
+    font-size: 18px;
+}
+
+.record_data ul {
+    list-style-type: none;
+    text-align: right;
+    float: right;
+}
+
+.record_data li {
+    list-style-type: none;
+    text-align: right;
+}
+
+.record_name {
+    float: left;
+}
+
+#phaseT {
+    margin-top: 15%;
+}
+
+#leyend {
+    margin-top: 25%;
+    width: 110%;
+}
+
+#left-phase-container {
+    width: 35%; 
+    float: left;
+    
+    margin-bottom: 2%;
+}
+
+#right-phase-container {
+     margin-left: 15%; 
+     margin-bottom: 2%;
+     
+     width: 35%; 
+     float: left;
 }
