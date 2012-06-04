@@ -60,18 +60,20 @@ function edit_rack() {
     });
     
     while(index < 3) {
-        $('#rac-iface').append('<input style="width: 35px;" type="number" value="" size="3" />' + ' -> ' + '<input style="width: 45px;" type="number" value="" size="4" /><br/>');
+        $('#rac-iface').append('<input style="width: 35px;" type="number" value="" size="3"  mix="1" max="11"/>' + ' -> ' + '<input style="width: 45px;" type="number" value="" size="4" mix="1" max="11"/><br/>');
         index++;
     }
     
     //Change button names and functions
-    $('#edit_rack').text("Discard changes");
-    $('#edit_rack').attr("name", "cancel");
-    $('#edit_rack').attr("onclick", "cancel_rack_editing();");
+    var $edit_rack = $('#edit_rack');
+    $edit_rack.text("Discard changes");
+    $edit_rack.attr("name", "cancel");
+    $edit_rack.attr("onclick", "cancel_rack_editing();");
     
-    $('#add_machine').text("Save changes");
-    $('#add_machine').attr("name", "commit");
-    $('#add_machine').attr("onclick", "commit_rack();");
+    var $add_machine = $('#add_machine');
+    $add_machine.text("Save changes");
+    $add_machine.attr("name", "commit");
+    $add_machine.attr("onclick", "commit_rack();");
     
     if(typeof(Storage)!=="undefined")
     {
@@ -86,7 +88,7 @@ function edit_rack() {
     
     
     var phase_id = sessionStorage.getItem($('#rac-view').attr("class"));
-    var phase_connection = "<p>Connected to </p> <select id='phases'>";
+    var phase_connection = "<p><img id='plug-img' src='images/PLUG.png' /> Connected to </p> <select id='phases'>";
     
     for(i = 1; i <= 11; i ++) {
         if( i == phase_id ) 
@@ -132,7 +134,7 @@ function commit_rack() {
         if(validate_input(pairs[i][0], pairs[i][1])) {
             post_string = post_string.concat("&iface" + (i+1) + "=" + pairs[i][0], "&ip" + (i+1) + "=" + pairs[i][1]);
         } else {
-            alert("Interface or input are not a valid input");
+            alert("Interface or subnet are not a valid input");
             return;
         }
     }

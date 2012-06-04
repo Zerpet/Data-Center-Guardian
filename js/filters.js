@@ -4,7 +4,7 @@
  */
 function validate_input(iface, ip) {
     
-    if(!typeof(iface) === "number" || iface < 0 || iface > 50) 
+    if(!typeof(iface) === "number" || iface < 1 || iface > 11) 
         return false;
     
     

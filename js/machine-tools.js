@@ -58,9 +58,12 @@ $(function() {
         
         data = data.substr(0, data.length - 1);
         data = encodeURI(data);
+        var rack_id = $('#rac-view').hide().attr("class");
+        $('#rac-view').removeClass(rack_id);
         
         $.post(url, data, function(html) {
             //OK or ERROR
+            show_rac(rack_id);
             if($dialog !== undefined) {
                 $dialog.dialog("destroy");
             }
@@ -76,8 +79,7 @@ $(function() {
 function open_machine_dialog(name, responsible, starting)  {
     
     if($dialog !== undefined) {
-        $dialog.dialog("open");
-        return;
+        $dialog.dialog("destroy");
     }
     
     
@@ -86,17 +88,19 @@ function open_machine_dialog(name, responsible, starting)  {
         
         
         //data is already an object
-        $('#responsible-information').children(':nth-child(1)').text(data.responsible);
-        $('#responsible-information').children(':nth-child(2)').text(data.email);
-        $('#responsible-information').children(':nth-child(3)').text(data.phone);
-        $('#responsible-information').children(':nth-child(4)').text(data.office);
+        var $resp_info = $('#responsible-information');
+        $resp_info.children(':nth-child(1)').text(data.responsible);
+        $resp_info.children(':nth-child(2)').text(data.email);
+        $resp_info.children(':nth-child(3)').text(data.phone);
+        $resp_info.children(':nth-child(4)').text(data.office);
         
-        $('#machine-information').children(':nth-child(1)').text(data.os);
-        $('#machine-information').children(':nth-child(2)').text(data.ip);
-        $('#machine-information').children(':nth-child(3)').text(data.color);
-        $('#machine-information').children(':nth-child(4)').text(data.type);
-        $('#machine-information').children(':nth-child(5)').html('Starts at <b>' + data.start + '</b>');
-        $('#machine-information').children(':nth-child(6)').html('It takes <b>' + data.us + '</b> U');
+        var $machine_inf = $('#machine-information');
+        $machine_inf.children(':nth-child(1)').text(data.os);
+        $machine_inf.children(':nth-child(2)').text(data.ip);
+        $machine_inf.children(':nth-child(3)').text(data.color);
+        $machine_inf.children(':nth-child(4)').text(data.type);
+        $machine_inf.children(':nth-child(5)').html('Starting position <b>' + data.start + '</b>');
+        $machine_inf.children(':nth-child(6)').html('It takes <b>' + data.us + '</b> U');
         
         $('.machine-notes').text(data.notes);
         
@@ -221,12 +225,17 @@ function delete_machine(name, resp) {
     var data = "name=" + escape(name) + "&responsible=" + escape(resp) + "&action=delete";
     var url = "https://163.117.142.145/pfc/logic/machine_commit.php";
     
+    var rack_id = $('#rac-view').hide().attr("class");
+    $('#rac-view').removeClass(rack_id);
+    
     $.post(url, data, function(state_html){
+        show_rac(rack_id);
+        
         if($dialog !== undefined) {
                 $dialog.dialog("destroy");
             }
             $dialog = undefined;
-            
+        
         $(state_html).insertAfter("#rac-schema");
         setTimeout("$('#machine-commit-state').fadeOut('slow', function(){ $('#machine-commit-state').remove(); });", 5000);
     }, "html");
@@ -266,7 +275,7 @@ function add_new_machine(rack_id) {
                     
                         $mach_form.attr("action", "logic/machine_commit.php");
                         $mach_form.submit();
-                        $mach_form.attr("action", "logic/machine_commit.php");
+                        $mach_form.attr("action", "logic/machine_edition.php");
                     },
                     Cancel: function() {
                         $dialog.dialog("destroy");
@@ -287,7 +296,7 @@ function add_new_machine(rack_id) {
                     
                     $mach_form.attr("action", "logic/machine_commit.php");
                     $mach_form.submit();
-                    $mach_form.attr("action", "logic/machine_commit.php");
+                    $mach_form.attr("action", "logic/machine_edition.php");
                 },
                 Cancel: function() {
                     $dialog.dialog("destroy");

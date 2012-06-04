@@ -56,9 +56,10 @@ unset($stm);
 $dbh = NULL;
 ?>
 
-
+<div class="ui-icon ui-icon-close close_button" onclick="hide_view('rac-view', 'boxes');"></div>
 <p id="war-title"><?php echo $result['name'] ?></p>
 <div style="float: left; width: 50%;">
+    
     <table id="rac-schema">
         <tbody>
             <?php
@@ -115,6 +116,7 @@ $dbh = NULL;
 
 <div id="rac-info">
     <h2>Network</h2>
+    <i>Interface -> Subnet</i>
     <ul id="rac-iface" style="margin-bottom: 20px;">
         <?php 
         if($result['iface1'] !== NULL)
@@ -135,8 +137,7 @@ $dbh = NULL;
     <button id="edit_rack" class="medium button marine" type="button" name="edit" onclick="edit_rack();">Edit RACK</button>
     <?php } ?>
     
-    <button class="medium button marine" type="button" name="expand" onclick="expand_compact_rac();">Expand RAC</button>
-    <button class="medium button marine" type="button" name="back" onclick="hide_view('rac-view', 'boxes');">Hide this view</button>
+    <button class="medium button marine" type="button" name="expand" onclick="expand_compact_rac();">Expand RACK</button>
     <?php if($_SESSION['user'] == "administrator") { ?>
     <button class="medium button red" type="button" name="delete" onclick="delete_rack('<?php echo $_POST['rac'] ?>');">Delete this RACK</button>
     <?php } ?>

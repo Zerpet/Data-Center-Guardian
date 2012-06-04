@@ -134,7 +134,9 @@ function print_wardrobe(array $info, $position) {
             <canvas id="boxes" width="420" height="522">Your browser does not support canvas element</canvas>
         </div>
         <div id="machine-view" style="display:none;">
+            Responsible:
             <div id="machine-view-content" class="ui-dialog-content ui-widget-content">
+                 
                 <ul id="responsible-information">
                     <li style="list-style:disc outside none;"></li>
                     <li class="machine-tabed-li"></li>
@@ -159,21 +161,21 @@ function print_wardrobe(array $info, $position) {
         </div>
         <div id="dialog-form" style="display:none;" title="Machine Form">
             <form method="post" action="logic/machine_edition.php" id="machine-form">
-                <label>Name </label><input type="text" value="" name="name" class="machine-paragraph" required="required"><br>
+                <label>Name </label><input type="text" value="" name="name" class="machine-paragraph" required="required" title="Machine name"><br>
 
-                Responsible <select form="machine-form" name="responsible" class="machine-paragraph">
+                Responsible <select form="machine-form" name="responsible" class="machine-paragraph" title="Responsible of the machine">
 
                 </select><br>
 
-                <label>OS </label><input type="text" value="" name="os" class="machine-paragraph" required="required"><br>
-                <label>IP </label><input type="text" value="" name="ip" class="machine-paragraph" required="required"><br>
+                <label>OS </label><input type="text" value="" name="os" class="machine-paragraph" required="required" title="Operating System, or just '-' if it does not have one"><br>
+                <label>IP </label><input type="text" value="" name="ip" class="machine-paragraph" required="required" title="Complete IP. Example: 192.168.1.10"><br>
 
-                Color <select form="machine-form" name="color" class="machine-paragraph">
+                Color <select form="machine-form" name="color" class="machine-paragraph" title="Color of the machine">
                     <option value="Bright">Bright</option>
                     <option value="Dark">Dark</option>
                 </select><br>
 
-                Type <select form="machine-form" name="type" class="machine-paragraph">
+                Type <select form="machine-form" name="type" class="machine-paragraph" title="Type of machine">
                     <option value="UPS">UPS</option>
                     <option value="Switch">Switch</option>
                     <option value="KVM">KVM</option>
@@ -182,14 +184,14 @@ function print_wardrobe(array $info, $position) {
                 </select><br>
 
                 <label>Notes </label><br>
-                <textarea maxlength="255" name="notes" form="machine-form" class="machine-paragraph" onchange="validate_notes(this.value);">
+                <textarea maxlength="255" name="notes" form="machine-form" class="machine-paragraph" onchange="validate_notes(this.value);" title="Aditional description you want to add">
 
                 </textarea><br>
                 
-                <b>Starts? </b>
-                <input type="number" required="required" max="42" min="0" maxlength="2" style="display: inline; width: 1cm;" value="" name="start" class="machine-paragraph"><br>
-                <b>Length? </b>
-                <input type="number" required="required" max="9" min="1" maxlength="1" style="display: inline; width: 1cm;" value="" name="us" class="machine-paragraph"><br>
+                <b>Starting position? </b>
+                <input type="number" required="required" max="42" min="0" maxlength="2" style="display: inline; width: 1cm;" value="" name="start" class="machine-paragraph" title="Starting position for this machine"><br>
+                <b>Number of U? (It goes upward)</b>
+                <input type="number" required="required" max="9" min="1" maxlength="1" style="display: inline; width: 1cm;" value="" name="us" class="machine-paragraph" title="How many U's it takes going upward"><br>
                 <input type="text" value="" name="old_name" class="machine-paragraph" required="required" style="visibility: hidden;">
                 <input type="text" value="" name="old_resp" class="machine-paragraph" required="required" style="visibility: hidden;">
             </form>

@@ -13,6 +13,7 @@
  */
 require 'check_if_logged.php';
 require '../includes/connect_DB.php';
+include '../includes/filter_functions.php';
 
 //Be ready for burrarum filter
 $validate_filters = array

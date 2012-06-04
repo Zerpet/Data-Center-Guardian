@@ -98,8 +98,6 @@ a {
     background-color: #cf2525; 
 }
 
-
-
 .subheader {
     color: #8B9EE3;
     font-family: Arial;
@@ -122,4 +120,13 @@ a {
     left: 25%;
     margin-top: 45px;
     margin-bottom: 45px;
+}
+
+.close_button {
+    position: relative;
+    margin-top: 2%;
+    right: -94%;
+    z-index: 2;
+    background-color: black;
+    cursor: pointer;
 }
