@@ -30,4 +30,16 @@
         return $statement;
     }
     
+    function fastQuery($sql, $class=null) {
+        global $dbh;
+        $stm = NULL;
+        
+        if($class !== null) 
+            $stm = $dbh->query($sql, PDO::FETCH_CLASS, $class, NULL);
+        else
+            $stm = $dbh->query($sql);
+        
+        return $stm->fetchAll();
+    }
+    
 ?>

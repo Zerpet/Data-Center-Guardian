@@ -30,9 +30,35 @@ function getLastConsumptionSet() {
     }
     
     $result = $stm->fetchAll(PDO::FETCH_CLASS, "consumption_record");
-//    echo json_encode($result);
+    
     return $result;
 }
+
+function postNewRecord() {
+//    print_r($_POST);
+
+    //TODO validate input. Check for admin
+    $post = $_POST;
+//    var_dump($post);
+    
+    $sql = "INSERT INTO `test`.`consumption_record` (`rack`, `record_timestamp`, `electric_current`) VALUES (:rack, CURRENT_TIMESTAMP, :current);";
+    $stm = prepareStatement($sql);
+    
+    if($stm === FALSE) {
+        echo 'Error preparing statement';
+        die();
+    }
+    
+    if($stm->execute($post) === FALSE){
+        echo 'Error executing query';
+        die();
+    }
+    
+}
+
+if($_SERVER['REQUEST_METHOD'] === 'POST') 
+    postNewRecord();
+
 
 $RECORDS = getLastConsumptionSet();
 
@@ -46,8 +72,10 @@ $RECORDS = getLastConsumptionSet();
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/jquery-ui-1.8.19.min.js"></script>
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/filters.js"></script>
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/show_things.js"></script>
+        <script type="text/javascript" src="https://163.117.142.145/pfc/js/consumption-tools.js"></script>
         <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/main.css" />
         <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/header_footer.css" />
+        <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/jquery-ui-1.8.19.cupertino.css" />
         <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/consumption.css" />
     </head>
     <body>
@@ -60,6 +88,7 @@ $RECORDS = getLastConsumptionSet();
             <!-- Left side -->
             <div id="left-phase-container">
                 <div class="phase" id="phaseR">
+                    <div class="ui-icon ui-icon-circle-plus consumption_add ui-corner-all" onclick="add_new_record();" title="Add new record">Add new record</div>
                     <!-- Title -->
                     <p class="title">Phase R</p>
                     <ol class="record_name">
@@ -87,20 +116,21 @@ $RECORDS = getLastConsumptionSet();
                             $found = FALSE;
                             foreach($RECORDS as $r) {
                                 if($r->phase_id == $i) {
-                                    echo '<li class="phase_entry">' . $r->electric_current . ' (' . $r->ocupation . '%)</li>';
+                                    echo '<li class="phase_entry">' . $r->electric_current . ' (' . round($r->ocupation, 2) . '%) <span title="Show historical" onclick="show_historical();" class="ui-icon ui-icon-calculator ui-corner-all historical_button"></span></li>';
                                     $found = TRUE;
                                     unset($r);
                                     break;
                                 }
                             }
                             if(!$found)
-                                echo '<li class="phase_entry">(%)</li>';
+                                echo '<li class="phase_entry" style="margin-right: 8%;">(%)</li>';
                         }
                         ?>
 <!--                        <li>16.0 (%)</li>-->
                     </ul>
                 </div>
                 <div class="phase" id="phaseT">
+                    <div class="ui-icon ui-icon-circle-plus consumption_add ui-corner-all" onclick="add_new_record();" title="Add new record">Add new record</div>
                     <!-- Title -->
                     <p class="title">Phase T</p>
                     <ol class="record_name" start="9">
@@ -128,14 +158,14 @@ $RECORDS = getLastConsumptionSet();
                             $found = FALSE;
                             foreach($RECORDS as $r) {
                                 if($r->phase_id == $i) {
-                                    echo '<li class="phase_entry">' . $r->electric_current . ' (' . $r->ocupation . '%)</li>';
+                                    echo '<li class="phase_entry">' . $r->electric_current . ' (' . round($r->ocupation, 2) . '%) <span title="Show historical" onclick="show_historical();" class="ui-icon ui-icon-calculator ui-corner-all historical_button"></span></li>';
                                     $found = TRUE;
                                     unset($r);
                                     break;
                                 }
                             }
                             if(!$found)
-                                echo '<li class="phase_entry">(%)</li>';
+                                echo '<li class="phase_entry" style="margin-right: 8%;">(%)</li>';
                         }
                         ?>
 <!--                        <li>16.0 (%)</li>-->
@@ -145,6 +175,7 @@ $RECORDS = getLastConsumptionSet();
             <!-- Right side -->
             <div id="right-phase-container">
                 <div class="phase" id="phaseS">
+                    <div class="ui-icon ui-icon-circle-plus consumption_add ui-corner-all" onclick="add_new_record();" title="Add new record">Add new record</div>
                     <!-- Title -->
                     <p class="title">Phase S</p>
                     <ol class="record_name" start="5">
@@ -172,17 +203,16 @@ $RECORDS = getLastConsumptionSet();
                             $found = FALSE;
                             foreach($RECORDS as $r) {
                                 if($r->phase_id == $i) {
-                                    echo '<li class="phase_entry">' . $r->electric_current . ' (' . $r->ocupation . '%)</li>';
+                                    echo '<li class="phase_entry">' . $r->electric_current . ' (' . round($r->ocupation, 2) . '%) <span title="Show historical" onclick="show_historical();" class="ui-icon ui-icon-calculator ui-corner-all historical_button"></span></li>';
                                     $found = TRUE;
                                     unset($r);
                                     break;
                                 }
                             }
                             if(!$found)
-                                echo '<li class="phase_entry">(%)</li>';
+                                echo '<li class="phase_entry" style="margin-right: 8%;">(%)</li>';
                         }
                         ?>
-<!--                        <li>16.0 (%)</li>-->
                     </ul>
                 </div>
                 <div class="phase" id="leyend">
@@ -193,9 +223,23 @@ $RECORDS = getLastConsumptionSet();
                 </div>
             </div>
             <br style="clear: both;">
+            <div id="form-container" title="Add new record" style="display: none;">
+                <form id="record_form" method="post">
+                    <label>RACK</label><select form="record_form" name="rack" class="consumption_input">
+                        <?php
+                        $result = fastQuery("SELECT name, position FROM wardrobe WHERE name != 'unnamed'");
+                        foreach($result as $r)
+                            print('<option value="' . $r[1] . '">' . $r[0] . '</option>');
+
+                        unset($result);
+                        ?>
+                    </select><br>
+                    <label>Electric current</label>
+                    <input type="number" required="required" mix="0" max="99" maxlength="5" value="" name="current" class="consumption_input" /><br>
+                </form>
+            </div>
         </div>
         
-        
-        <?php include("includes/footer.php"); ?>
+        <?php include("includes/footer.php"); unset($RECORDS); ?>
     </body>
 </html>
