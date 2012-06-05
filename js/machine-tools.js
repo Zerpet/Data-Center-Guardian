@@ -90,9 +90,9 @@ function open_machine_dialog(name, responsible, starting)  {
         //data is already an object
         var $resp_info = $('#responsible-information');
         $resp_info.children(':nth-child(1)').text(data.responsible);
-        $resp_info.children(':nth-child(2)').text(data.email);
-        $resp_info.children(':nth-child(3)').text(data.phone);
-        $resp_info.children(':nth-child(4)').text(data.office);
+        $resp_info.children(':nth-child(2)').text('E-mail: ' + data.email);
+        $resp_info.children(':nth-child(3)').text('Phone: ' + data.phone);
+        $resp_info.children(':nth-child(4)').text('Office: ' + data.office);
         
         var $machine_inf = $('#machine-information');
         $machine_inf.children(':nth-child(1)').text(data.os);
@@ -130,7 +130,7 @@ function open_machine_dialog(name, responsible, starting)  {
             );
         }
         
-        $dialog = $("#machine-view").dialog({resizable: false, minWidth: 400, autoOpen: false, 
+        $dialog = $("#machine-view").dialog({resizable: false, minWidth: 500, autoOpen: false, 
             modal: true, buttons: buttons_array});
         
         $dialog.dialog("option", "title", data.name);
