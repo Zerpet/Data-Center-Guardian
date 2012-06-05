@@ -3,6 +3,9 @@ require("./logic/check_if_logged.php");
 require("includes/connect_DB.php");
 include "includes/consumptionRecordClass.php";
 
+if($_SESSION['user'] !== "administrator")
+    header ("Location: https://163.117.142.145/pfc/overview.php");
+
 $RECORDS = null;
 
 function getLastConsumptionSet() {
