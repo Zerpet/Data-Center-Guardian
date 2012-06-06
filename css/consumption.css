@@ -88,3 +88,28 @@
     background-color: white;
     cursor: pointer;
 }
+
+#chart_container {
+    width: 100%; 
+    height: 250px; 
+}
+
+.chart_div {
+    margin-top: 2%;
+    margin-bottom: 2%;
+    display: none;
+    border: 1px #2575cf dashed; 
+}
+
+#ocupation_chart {
+    width: 70%;
+}
+
+#chart_title {
+    display: none;
+}
+
+#close_buton {
+    display: none;
+    cursor: pointer;
+}

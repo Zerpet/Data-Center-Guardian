@@ -72,6 +72,10 @@ $RECORDS = getLastConsumptionSet();
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Consumption</title>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript">
+        // Load the Visualization API and the piechart package.
+        google.load('visualization', '1.0', {'packages':['corechart']});
+        </script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/filters.js"></script>
@@ -120,7 +124,7 @@ $RECORDS = getLastConsumptionSet();
                             $found = FALSE;
                             foreach($RECORDS as $r) {
                                 if($r->phase_id == $i) {
-                                    echo '<li class="phase_entry">' . $r->electric_current . ' (' . round($r->ocupation, 2) . '%) <span title="Show historical" onclick="show_historical(\'' . $r->rack_id . '\');" class="ui-icon ui-icon-calculator ui-corner-all historical_button"></span></li>';
+                                    echo '<li class="phase_entry">' . $r->electric_current . ' (' . round($r->ocupation, 2) . '%) <span title="Show historical" onclick="show_historical(\'' . $r->rack_id . '\', \''. $r->rack_name . '\'); ocupationChart(\'' . $r->rack_name . '\', \'' . round($r->ocupation, 2) . '\');" class="ui-icon ui-icon-calculator ui-corner-all historical_button"></span></li>';
                                     $found = TRUE;
                                     unset($r);
                                     break;
@@ -162,7 +166,7 @@ $RECORDS = getLastConsumptionSet();
                             $found = FALSE;
                             foreach($RECORDS as $r) {
                                 if($r->phase_id == $i) {
-                                    echo '<li class="phase_entry">' . $r->electric_current . ' (' . round($r->ocupation, 2) . '%) <span title="Show historical" onclick="show_historical(\'' . $r->rack_id . '\');" class="ui-icon ui-icon-calculator ui-corner-all historical_button"></span></li>';
+                                    echo '<li class="phase_entry">' . $r->electric_current . ' (' . round($r->ocupation, 2) . '%) <span title="Show historical" onclick="show_historical(\'' . $r->rack_id . '\', \''. $r->rack_name . '\'); ocupationChart(\'' . $r->rack_name . '\', \'' . round($r->ocupation, 2) . '\');" class="ui-icon ui-icon-calculator ui-corner-all historical_button"></span></li>';
                                     $found = TRUE;
                                     unset($r);
                                     break;
@@ -207,7 +211,7 @@ $RECORDS = getLastConsumptionSet();
                             $found = FALSE;
                             foreach($RECORDS as $r) {
                                 if($r->phase_id == $i) {
-                                    echo '<li class="phase_entry">' . $r->electric_current . ' (' . round($r->ocupation, 2) . '%) <span title="Show historical" onclick="show_historical(\'' . $r->rack_id . '\');" class="ui-icon ui-icon-calculator ui-corner-all historical_button"></span></li>';
+                                    echo '<li class="phase_entry">' . $r->electric_current . ' (' . round($r->ocupation, 2) . '%) <span title="Show historical" onclick="show_historical(\'' . $r->rack_id . '\', \''. $r->rack_name . '\'); ocupationChart(\'' . $r->rack_name . '\', \'' . round($r->ocupation, 2) . '\');" class="ui-icon ui-icon-calculator ui-corner-all historical_button"></span></li>';
                                     $found = TRUE;
                                     unset($r);
                                     break;
@@ -225,6 +229,13 @@ $RECORDS = getLastConsumptionSet();
                         <li>Phase: RACK ...... Electric current (ocupation %)</li>
                     </ul>
                 </div>
+            </div>
+            <h2 id="chart_title">Historical data for RACK _</h2><div id="close_buton" class="ui-icon ui-icon-closethick" onclick="close_chart();"></div>
+            <div id="chart_container" class="chart_div">
+                
+            </div>
+            <div id="ocupation_chart" class="chart_div">
+                
             </div>
             <br style="clear: both;">
             <div id="form-container" title="Add new record" style="display: none;">
