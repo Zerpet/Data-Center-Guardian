@@ -4,9 +4,8 @@
  */
 function validate_input(iface, ip) {
     
-    if(!typeof(iface) === "number" || iface < 1 || iface > 11) 
+    if((!typeof(iface) === "number" && iface !== "") && (iface < 1 || iface > 11)) 
         return false;
-    
     
     if(!typeof(ip) === "number" && (ip !== "___" || ip !== "")) //The interface may be open
         return false;

@@ -7,14 +7,14 @@ $(function() {
         event.preventDefault();
         
         var valid = true;
-        event.target.elements[3].style.border = "0px #FF0000 solid";
+        event.target.elements[3].style.border = "1px #000000 solid";
         valid = valid && validate_complete_ip(event.target.elements[3].value);
         
         if(valid === false) {
             event.target.elements[3].style.border = "1px #FF0000 solid";
             return valid;
         }
-        event.target.elements[4].style.border = "0px #FF0000 solid";
+        event.target.elements[4].style.border = "1px #000000 solid";
         valid = valid && validate_color(event.target.elements[4].value);
         
         if(valid === false) {
@@ -22,7 +22,7 @@ $(function() {
             return valid;
         }
             
-        event.target.elements[5].style.border = "0px #FF0000 solid";
+        event.target.elements[5].style.border = "1px #000000 solid";
         valid = valid && validate_type(event.target.elements[5].value);
         
         if(valid === false) {
@@ -30,7 +30,7 @@ $(function() {
             return valid;
         }
         
-        event.target.elements[7].style.border = "0px #FF0000 solid";
+        event.target.elements[7].style.border = "1px #000000 solid";
         valid = valid && validate_starts(event.target.elements[7].value);
         
         if(valid === false) {
@@ -38,7 +38,7 @@ $(function() {
             return valid;
         }
         
-        event.target.elements[8].style.border = "0px #FF0000 solid";
+        event.target.elements[8].style.border = "1px #000000 solid";
         valid = valid && validate_us(event.target.elements[8].value);
         
         if(valid === false) {
@@ -90,9 +90,9 @@ function open_machine_dialog(name, responsible, starting)  {
         //data is already an object
         var $resp_info = $('#responsible-information');
         $resp_info.children(':nth-child(1)').text(data.responsible);
-        $resp_info.children(':nth-child(2)').text(data.email);
-        $resp_info.children(':nth-child(3)').text(data.phone);
-        $resp_info.children(':nth-child(4)').text(data.office);
+        $resp_info.children(':nth-child(2)').text('E-mail: ' + data.email);
+        $resp_info.children(':nth-child(3)').text('Phone: ' + data.phone);
+        $resp_info.children(':nth-child(4)').text('Office: ' + data.office);
         
         var $machine_inf = $('#machine-information');
         $machine_inf.children(':nth-child(1)').text(data.os);
@@ -130,7 +130,7 @@ function open_machine_dialog(name, responsible, starting)  {
             );
         }
         
-        $dialog = $("#machine-view").dialog({resizable: false, minWidth: 400, autoOpen: false, 
+        $dialog = $("#machine-view").dialog({resizable: false, minWidth: 500, autoOpen: false, 
             modal: true, buttons: buttons_array});
         
         $dialog.dialog("option", "title", data.name);
