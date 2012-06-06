@@ -86,4 +86,5 @@
 .historical_button {
     float: right; 
     background-color: white;
+    cursor: pointer;
 }

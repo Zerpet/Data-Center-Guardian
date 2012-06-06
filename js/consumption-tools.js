@@ -30,3 +30,12 @@ function add_new_record() {
     }});
     
 }
+
+function show_historical(rack_id) {
+    alert("Not implemented yet!");
+    return;
+    
+    
+    
+    
+}

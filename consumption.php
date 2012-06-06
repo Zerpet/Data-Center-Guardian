@@ -10,7 +10,7 @@ $RECORDS = null;
 
 function getLastConsumptionSet() {
     //Infernal select to obtain, for each RACK, the last consumption record
-    $sql = "SELECT phase_id, electric_current, group_name, rack_name, ocupation FROM "
+    $sql = "SELECT phase_id, electric_current, rack_id, rack_name, ocupation FROM "
         . "(SELECT cr.rack, cr.electric_current FROM `consumption_record` cr "
             . "JOIN (SELECT rack , max(`record_timestamp`) maximo "
                 . "FROM `consumption_record` group by rack) max "
@@ -71,8 +71,9 @@ $RECORDS = getLastConsumptionSet();
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Consumption</title>
-        <script type="text/javascript" src="https://163.117.142.145/pfc/js/jquery-1.7.2.min.js"></script>
-        <script type="text/javascript" src="https://163.117.142.145/pfc/js/jquery-ui-1.8.19.min.js"></script>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/filters.js"></script>
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/show_things.js"></script>
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/consumption-tools.js"></script>
@@ -119,7 +120,7 @@ $RECORDS = getLastConsumptionSet();
                             $found = FALSE;
                             foreach($RECORDS as $r) {
                                 if($r->phase_id == $i) {
-                                    echo '<li class="phase_entry">' . $r->electric_current . ' (' . round($r->ocupation, 2) . '%) <span title="Show historical" onclick="show_historical();" class="ui-icon ui-icon-calculator ui-corner-all historical_button"></span></li>';
+                                    echo '<li class="phase_entry">' . $r->electric_current . ' (' . round($r->ocupation, 2) . '%) <span title="Show historical" onclick="show_historical(\'' . $r->rack_id . '\');" class="ui-icon ui-icon-calculator ui-corner-all historical_button"></span></li>';
                                     $found = TRUE;
                                     unset($r);
                                     break;
@@ -161,7 +162,7 @@ $RECORDS = getLastConsumptionSet();
                             $found = FALSE;
                             foreach($RECORDS as $r) {
                                 if($r->phase_id == $i) {
-                                    echo '<li class="phase_entry">' . $r->electric_current . ' (' . round($r->ocupation, 2) . '%) <span title="Show historical" onclick="show_historical();" class="ui-icon ui-icon-calculator ui-corner-all historical_button"></span></li>';
+                                    echo '<li class="phase_entry">' . $r->electric_current . ' (' . round($r->ocupation, 2) . '%) <span title="Show historical" onclick="show_historical(\'' . $r->rack_id . '\');" class="ui-icon ui-icon-calculator ui-corner-all historical_button"></span></li>';
                                     $found = TRUE;
                                     unset($r);
                                     break;
@@ -206,7 +207,7 @@ $RECORDS = getLastConsumptionSet();
                             $found = FALSE;
                             foreach($RECORDS as $r) {
                                 if($r->phase_id == $i) {
-                                    echo '<li class="phase_entry">' . $r->electric_current . ' (' . round($r->ocupation, 2) . '%) <span title="Show historical" onclick="show_historical();" class="ui-icon ui-icon-calculator ui-corner-all historical_button"></span></li>';
+                                    echo '<li class="phase_entry">' . $r->electric_current . ' (' . round($r->ocupation, 2) . '%) <span title="Show historical" onclick="show_historical(\'' . $r->rack_id . '\');" class="ui-icon ui-icon-calculator ui-corner-all historical_button"></span></li>';
                                     $found = TRUE;
                                     unset($r);
                                     break;
