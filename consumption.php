@@ -2,10 +2,13 @@
 require("./logic/check_if_logged.php"); 
 require("includes/connect_DB.php");
 include "includes/consumptionRecordClass.php";
+include "includes/filter_functions.php";
 
-if($_SESSION['user'] !== "administrator")
+
+if($_SESSION['user'] !== "administrator") {
     header ("Location: https://163.117.142.145/pfc/overview.php");
-
+    return;
+}
 $RECORDS = null;
 
 function getLastConsumptionSet() {
@@ -38,11 +41,27 @@ function getLastConsumptionSet() {
 }
 
 function postNewRecord() {
-//    print_r($_POST);
-
-    //TODO validate input. Check for admin
-    $post = $_POST;
-//    var_dump($post);
+    
+    if($_SESSION['user'] !== "administrator")
+        return;
+    //TODO validate input
+    
+    $filters = array(
+        "rack" => array(
+            "filter" => FILTER_CALLBACK,
+            "options" => "validate_rack"
+        ),
+        "current" => array(
+            "filter" => FILTER_VALIDATE_FLOAT
+        )
+    );
+    
+    $post = filter_input_array(INPUT_POST, $filters);
+    
+    if(in_array(FALSE, $post)) {
+        header ("Location: https://163.117.142.145/pfc/errorPage.php");
+        return;
+    }
     
     $sql = "INSERT INTO `test`.`consumption_record` (`rack`, `record_timestamp`, `electric_current`) VALUES (:rack, CURRENT_TIMESTAMP, :current);";
     $stm = prepareStatement($sql);
@@ -81,6 +100,7 @@ $RECORDS = getLastConsumptionSet();
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/filters.js"></script>
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/show_things.js"></script>
         <script type="text/javascript" src="https://163.117.142.145/pfc/js/consumption-tools.js"></script>
+        
         <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/main.css" />
         <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/header_footer.css" />
         <link rel="stylesheet" type="text/css" href="https://163.117.142.145/pfc/css/jquery-ui-1.8.19.cupertino.css" />
@@ -93,147 +113,123 @@ $RECORDS = getLastConsumptionSet();
         </div>
         <?php include("includes/leftmenu.php"); ?>
         <div class="content">
-            <!-- Left side -->
-            <div id="left-phase-container">
-                <div class="phase" id="phaseR">
-                    <div class="ui-icon ui-icon-circle-plus consumption_add ui-corner-all" onclick="add_new_record();" title="Add new record">Add new record</div>
-                    <!-- Title -->
-                    <p class="title">Phase R</p>
-                    <ol class="record_name">
-                        <?php 
-                        for($i = 1; $i < 5; $i++) {
-                            $found = FALSE;
-                            foreach($RECORDS as $r) {
-                                if($r->phase_id == $i) {
-                                    echo '<li class="phase_entry">' . $r->rack_name .'</li>';
-                                    $found = TRUE;
-                                    unset($r);
-                                    break;
-                                }
+            <div class="phase" id="phaseR">
+                <!-- Title -->
+                <p class="title">Phase R</p>
+                <table class="record_data" border="0">
+                    <tr>
+                        <th>Circuit</th>
+                        <th>Rack</th>
+                        <th>Consumption</th>
+                        <th>Ocupation</th>
+                        <th></th>
+                    </tr>
+                    <?php //<span class="ui-icon ui-icon-calculator ui-corner-all historical_button" onclick="show_historical('104', 'Sintonía'); ocupationChart('Sintonía', '4.76');" title="Show historical"></span>
+                    for($i = 1; $i < 5; $i++) {
+                        $found = FALSE;
+                        echo '<tr>' . '<th>' . $i . '</th>';
+
+                        foreach($RECORDS as $r) {
+                            if($r->phase_id == $i) {
+                                echo '<th>' . $r->rack_name . '</th>';
+                                echo '<th>' . $r->electric_current . '</th>';
+                                echo '<th>' . round($r->ocupation, 2) . ' %</th>';
+                                echo '<th><span class="ui-icon ui-icon-calculator ui-corner-all historical_button" onclick="show_historical(\'' . $r->rack_id . '\', \'' . $r->rack_name . '\'); ocupationChart(\'' . $r->rack_name . '\', \'' . $r->ocupation . '\');" title="Show historical"></span></th>';
+                                $found = TRUE;
+                                unset($r);
+                                break;
                             }
-                            if(!$found)
-                                echo '<li class="phase_entry"></li>';
                         }
-                        ?>
-<!--                        <li class="phase_entry"></li> 
-                        <li class="phase_entry">Scalab</li>-->
-                    </ol>
-                    <ul class="record_data">
-                        <?php 
-                        for($i = 1; $i < 5; $i++) {
-                            $found = FALSE;
-                            foreach($RECORDS as $r) {
-                                if($r->phase_id == $i) {
-                                    echo '<li class="phase_entry">' . $r->electric_current . ' (' . round($r->ocupation, 2) . '%) <span title="Show historical" onclick="show_historical(\'' . $r->rack_id . '\', \''. $r->rack_name . '\'); ocupationChart(\'' . $r->rack_name . '\', \'' . round($r->ocupation, 2) . '\');" class="ui-icon ui-icon-calculator ui-corner-all historical_button"></span></li>';
-                                    $found = TRUE;
-                                    unset($r);
-                                    break;
-                                }
-                            }
-                            if(!$found)
-                                echo '<li class="phase_entry" style="margin-right: 8%;">(%)</li>';
-                        }
-                        ?>
-<!--                        <li>16.0 (%)</li>-->
-                    </ul>
-                </div>
-                <div class="phase" id="phaseT">
-                    <div class="ui-icon ui-icon-circle-plus consumption_add ui-corner-all" onclick="add_new_record();" title="Add new record">Add new record</div>
-                    <!-- Title -->
-                    <p class="title">Phase T</p>
-                    <ol class="record_name" start="9">
-                        <?php 
-                        for($i = 9; $i < 12; $i++) {
-                            $found = FALSE;
-                            foreach($RECORDS as $r) {
-                                if($r->phase_id == $i) {
-                                    echo '<li class="phase_entry">' . $r->rack_name . '</li>';
-                                    $found = TRUE;
-                                    unset($r);
-                                    break;
-                                }
-                            }
-                            if(!$found)
-                                echo '<li class="phase_entry"></li>';
-                        }
-                        ?>
-<!--                        <li class="phase_entry"></li> 
-                        <li class="phase_entry">Scalab</li>-->
-                    </ol>
-                    <ul class="record_data">
-                        <?php 
-                        for($i = 9; $i < 12; $i++) {
-                            $found = FALSE;
-                            foreach($RECORDS as $r) {
-                                if($r->phase_id == $i) {
-                                    echo '<li class="phase_entry">' . $r->electric_current . ' (' . round($r->ocupation, 2) . '%) <span title="Show historical" onclick="show_historical(\'' . $r->rack_id . '\', \''. $r->rack_name . '\'); ocupationChart(\'' . $r->rack_name . '\', \'' . round($r->ocupation, 2) . '\');" class="ui-icon ui-icon-calculator ui-corner-all historical_button"></span></li>';
-                                    $found = TRUE;
-                                    unset($r);
-                                    break;
-                                }
-                            }
-                            if(!$found)
-                                echo '<li class="phase_entry" style="margin-right: 8%;">(%)</li>';
-                        }
-                        ?>
-<!--                        <li>16.0 (%)</li>-->
-                    </ul>
-                </div>
+                        if(!$found)
+                            echo '<th>Empty</th> <th></th> <th></th> <th></th> <th></th>';
+
+                        echo '</tr>';
+                    }
+                    ?>
+
+                </table>
             </div>
-            <!-- Right side -->
-            <div id="right-phase-container">
-                <div class="phase" id="phaseS">
-                    <div class="ui-icon ui-icon-circle-plus consumption_add ui-corner-all" onclick="add_new_record();" title="Add new record">Add new record</div>
-                    <!-- Title -->
-                    <p class="title">Phase S</p>
-                    <ol class="record_name" start="5">
-                        <?php 
-                        for($i = 5; $i < 9; $i++) {
-                            $found = FALSE;
-                            foreach($RECORDS as $r) {
-                                if($r->phase_id == $i) {
-                                    echo '<li class="phase_entry">' . $r->rack_name . '</li>';
-                                    $found = TRUE;
-                                    unset($r);
-                                    break;
-                                }
+            <div class="phase" id="phaseS">
+                <!-- Title -->
+                <p class="title">Phase S</p>
+                <table class="record_data" border="0">
+                    <tr>
+                        <th>Circuit</th>
+                        <th>Rack</th>
+                        <th>Consumption</th>
+                        <th>Ocupation</th>
+                        <th></th>
+                    </tr>
+                    <?php //<span class="ui-icon ui-icon-calculator ui-corner-all historical_button" onclick="show_historical('104', 'Sintonía'); ocupationChart('Sintonía', '4.76');" title="Show historical"></span>
+                    for($i = 5; $i < 9; $i++) {
+                        $found = FALSE;
+                        echo '<tr>' . '<th>' . $i . '</th>';
+                        
+                        foreach($RECORDS as $r) {
+                            if($r->phase_id == $i) {
+                                echo '<th>' . $r->rack_name . '</th>';
+                                echo '<th>' . $r->electric_current . '</th>';
+                                echo '<th>' . round($r->ocupation, 2) . ' %</th>';
+                                echo '<th><span class="ui-icon ui-icon-calculator ui-corner-all historical_button" onclick="show_historical(\'' . $r->rack_id . '\', \'' . $r->rack_name . '\'); ocupationChart(\'' . $r->rack_name . '\', \'' . $r->ocupation . '\');" title="Show historical"></span></th>';
+                                $found = TRUE;
+                                unset($r);
+                                break;
                             }
-                            if(!$found)
-                                echo '<li class="phase_entry"></li>';
                         }
-                        ?>
-<!--                        <li class="phase_entry"></li> 
-                        <li class="phase_entry">Scalab</li>-->
-                    </ol>
-                    <ul class="record_data">
-                        <?php 
-                        for($i = 5; $i < 9; $i++) {
-                            $found = FALSE;
-                            foreach($RECORDS as $r) {
-                                if($r->phase_id == $i) {
-                                    echo '<li class="phase_entry">' . $r->electric_current . ' (' . round($r->ocupation, 2) . '%) <span title="Show historical" onclick="show_historical(\'' . $r->rack_id . '\', \''. $r->rack_name . '\'); ocupationChart(\'' . $r->rack_name . '\', \'' . round($r->ocupation, 2) . '\');" class="ui-icon ui-icon-calculator ui-corner-all historical_button"></span></li>';
-                                    $found = TRUE;
-                                    unset($r);
-                                    break;
-                                }
-                            }
-                            if(!$found)
-                                echo '<li class="phase_entry" style="margin-right: 8%;">(%)</li>';
-                        }
-                        ?>
-                    </ul>
-                </div>
-                <div class="phase" id="leyend">
-                    <p>Leyend</p>
-                    <ul>
-                        <li>Phase: RACK ...... Electric current (ocupation %)</li>
-                    </ul>
-                </div>
-            </div>
-            <h2 id="chart_title">Historical data for RACK _</h2><div id="close_buton" class="ui-icon ui-icon-closethick" onclick="close_chart();"></div>
-            <div id="chart_container" class="chart_div">
+                        if(!$found)
+                            echo '<th>Empty</th> <th></th> <th></th> <th></th> <th></th>';
+                        
+                        echo '</tr>';
+                    }
+                    ?>
+                    
+                </table>
                 
             </div>
+            <div class="phase" id="phaseT">
+                <!-- Title -->
+                <p class="title">Phase T</p>
+                <table class="record_data" border="0">
+                    <tr>
+                        <th>Circuit</th>
+                        <th>Rack</th>
+                        <th>Consumption</th>
+                        <th>Ocupation</th>
+                        <th></th>
+                    </tr>
+                    <?php //<span class="ui-icon ui-icon-calculator ui-corner-all historical_button" onclick="show_historical('104', 'Sintonía'); ocupationChart('Sintonía', '4.76');" title="Show historical"></span>
+                    for($i = 9; $i < 12; $i++) {
+                        $found = FALSE;
+                        echo '<tr>' . '<th>' . $i . '</th>';
+                        
+                        foreach($RECORDS as $r) {
+                            if($r->phase_id == $i) {
+                                echo '<th>' . $r->rack_name . '</th>';
+                                echo '<th>' . $r->electric_current . '</th>';
+                                echo '<th>' . round($r->ocupation, 2) . ' %</th>';
+                                echo '<th><span class="ui-icon ui-icon-calculator ui-corner-all historical_button" onclick="show_historical(\'' . $r->rack_id . '\', \'' . $r->rack_name . '\'); ocupationChart(\'' . $r->rack_name . '\', \'' . $r->ocupation . '\');" title="Show historical"></span></th>';
+                                $found = TRUE;
+                                unset($r);
+                                break;
+                            }
+                        }
+                        if(!$found)
+                            echo '<th>Empty</th> <th></th> <th></th> <th></th> <th></th>';
+                        
+                        echo '</tr>';
+                    }
+                    ?>
+                    
+                </table>
+            </div>
+            <button class="button medium blue ui-corner-all" id="add_button" onclick="add_new_record();" title="Add new record">Add new record</button>
+            
+            <!-- Close button -->
+            <div id="close_buton" class="ui-icon ui-icon-closethick" onclick="close_chart();"></div>
+            
+            <h2 id="chart_title">Historical data for RACK _</h2>
+            <div id="chart_container" class="chart_div"></div>
+            <h2 id="ocupation_title">Actual ocupation</h2>
             <div id="ocupation_chart" class="chart_div">
                 
             </div>

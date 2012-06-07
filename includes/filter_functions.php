@@ -35,15 +35,12 @@ function sanitize_ip($ip) {
     if($ip === "" || $ip === "___") 
         return "___";
     
-    $tmp = intval($ip);
+    $tmp = preg_match("/^163\\.117\\.(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]|[0-9])\\.(?:X|x)$/", $ip, $tmp);
     
-    if(is_int($tmp) === FALSE)
-        return FALSE;
+    if($tmp === 1)
+        return $ip;
     
-    if($tmp < 0 || $tmp > 255)
-        return FALSE;
-    
-    return $tmp;
+    return FALSE;
 }
 
 ?>

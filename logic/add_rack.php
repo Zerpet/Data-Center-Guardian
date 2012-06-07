@@ -6,7 +6,7 @@ if(isset($_POST['rack']) === FALSE) {
 }
 ?>
 
-<input id="war-title" style="margin-left: 15%;" type="text" name="rack-title" value="Unnamed" />
+<label for="war-title" style="font-size: 18px; margin-left: 5%;">RACK name: </label><input id="war-title" style="width: 60%;" type="text" name="rack-title" value="Unnamed" />
 <div style="float: left;">
     <table id="rac-schema">
         <tbody>
@@ -26,12 +26,14 @@ if(isset($_POST['rack']) === FALSE) {
     <h2>Network</h2>
     
     Interface -> IP<br>
-    <input type="number" name="iface1" style="width: 40px;" /> 
-    -> <input type="number" name="ip1" style="width: 40px;" /> <br>
-    <input type="number" name="iface2" style="width: 40px;" /> 
-    -> <input type="number" name="ip2" style="width: 40px;" /> <br>
-    <input type="number" name="iface3" style="width: 40px;" /> 
-    -> <input type="number" name="ip3" style="width: 40px;" /> <br>
+    <div id="rac-iface">
+        <input type="number" name="iface1" style="width: 40px;" /> 
+        -> <input type="number" name="ip1" style="width: 85px;" size="16" /> <br>
+        <input type="number" name="iface2" style="width: 40px;" /> 
+        -> <input type="number" name="ip2" style="width: 85px;" size="16" /> <br>
+        <input type="number" name="iface3" style="width: 40px;" /> 
+        -> <input type="number" name="ip3" style="width: 85px;" size="16" /> <br>
+    </div>
     <p>Connected to 
     <select id="phases" name="connected">
         <option value="1">1</option>

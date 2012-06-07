@@ -57,7 +57,7 @@ $dbh = NULL;
 ?>
 
 <div class="ui-icon ui-icon-close close_button" onclick="hide_view('rac-view', 'boxes');"></div>
-<p id="war-title"><?php echo $result['name'] ?></p>
+<p id="war-title">RACK name: <?php echo $result['name'] ?></p>
 <div style="float: left; width: 50%;">
     
     <table id="rac-schema">
@@ -134,11 +134,11 @@ $dbh = NULL;
     
     <?php if($_SESSION['user'] == "administrator") { ?>
     <button id="add_machine" class="medium button marine" type="button" name="add" onclick="add_new_machine(<?php echo '\'' . $post . '\'' ?>);">Add Machine</button>
-    <button id="edit_rack" class="medium button marine" type="button" name="edit" onclick="edit_rack();">Edit RACK</button>
+    <button id="edit_rack" class="medium button marine" type="button" name="edit" onclick="edit_rack(<?php echo '\'' . $post . '\'' ?>);">Edit RACK</button>
     <?php } ?>
     
     <button class="medium button marine" type="button" name="expand" onclick="expand_compact_rac();">Expand RACK</button>
     <?php if($_SESSION['user'] == "administrator") { ?>
-    <button class="medium button red" type="button" name="delete" onclick="delete_rack('<?php echo $_POST['rac'] ?>');">Delete this RACK</button>
+    <button class="medium button red" type="button" name="delete" onclick="delete_rack('<?php echo $post ?>');">Delete this RACK</button>
     <?php } ?>
 </div>

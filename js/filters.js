@@ -4,15 +4,14 @@
  */
 function validate_input(iface, ip) {
     
+    var ipRE = /^163\.117\.(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]|[0-9])\.(?:X|x)$/;
+    
     if((!typeof(iface) === "number" && iface !== "") && (iface < 1 || iface > 11)) 
         return false;
     
-    if(!typeof(ip) === "number" && (ip !== "___" || ip !== "")) //The interface may be open
+    if( !ipRE.test(ip) && (ip !== "___" && ip !== "") ) //The interface may be open
         return false;
     
-    
-    if(ip < 0 || ip > 255) 
-        return false;
     
     return true;
 }

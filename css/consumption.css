@@ -28,7 +28,8 @@
             color-stop(0.91, #70A2E3)
     );
     
-    width: 100%;
+    width: 65%;
+    margin-bottom: 2%;
 }
 
 .phase p{
@@ -42,34 +43,18 @@
 .record_data {
     list-style-type: none;
     text-align: right;
+    empty-cells: show;
+    width: 100%;
 }
 
 .record_name {
     float: left;
 }
 
-#phaseT {
-    margin-top: 15%;
-}
-
-#leyend {
-    margin-top: 25%;
-    width: 110%;
-}
-
-#left-phase-container {
-    width: 35%; 
-    float: left;
-    
+#add_button {
+    margin-top: 2%;
     margin-bottom: 2%;
-}
-
-#right-phase-container {
-     margin-left: 15%; 
-     margin-bottom: 2%;
-     
-     width: 35%; 
-     float: left;
+    width: 22%;
 }
 
 .consumption_add {
@@ -106,6 +91,10 @@
 }
 
 #chart_title {
+    display: none;
+}
+
+#ocupation_title {
     display: none;
 }
 

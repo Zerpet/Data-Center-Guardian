@@ -7,14 +7,14 @@ $(function() {
         event.preventDefault();
         
         var valid = true;
-        event.target.elements[3].style.border = "1px #000000 solid";
+        event.target.elements[3].style.border = "1px #EEEEEE solid";
         valid = valid && validate_complete_ip(event.target.elements[3].value);
         
         if(valid === false) {
             event.target.elements[3].style.border = "1px #FF0000 solid";
             return valid;
         }
-        event.target.elements[4].style.border = "1px #000000 solid";
+        event.target.elements[4].style.border = "1px #EEEEEE solid";
         valid = valid && validate_color(event.target.elements[4].value);
         
         if(valid === false) {
@@ -22,7 +22,7 @@ $(function() {
             return valid;
         }
             
-        event.target.elements[5].style.border = "1px #000000 solid";
+        event.target.elements[5].style.border = "1px #EEEEEE solid";
         valid = valid && validate_type(event.target.elements[5].value);
         
         if(valid === false) {
@@ -30,7 +30,7 @@ $(function() {
             return valid;
         }
         
-        event.target.elements[7].style.border = "1px #000000 solid";
+        event.target.elements[7].style.border = "1px #EEEEEE solid";
         valid = valid && validate_starts(event.target.elements[7].value);
         
         if(valid === false) {
@@ -38,7 +38,7 @@ $(function() {
             return valid;
         }
         
-        event.target.elements[8].style.border = "1px #000000 solid";
+        event.target.elements[8].style.border = "1px #EEEEEE solid";
         valid = valid && validate_us(event.target.elements[8].value);
         
         if(valid === false) {
@@ -95,10 +95,10 @@ function open_machine_dialog(name, responsible, starting)  {
         $resp_info.children(':nth-child(4)').text('Office: ' + data.office);
         
         var $machine_inf = $('#machine-information');
-        $machine_inf.children(':nth-child(1)').text(data.os);
-        $machine_inf.children(':nth-child(2)').text(data.ip);
-        $machine_inf.children(':nth-child(3)').text(data.color);
-        $machine_inf.children(':nth-child(4)').text(data.type);
+        $machine_inf.children(':nth-child(1)').text("OS: " + data.os);
+        $machine_inf.children(':nth-child(2)').text("IP: " + data.ip);
+        $machine_inf.children(':nth-child(3)').text("Color: " + data.color);
+        $machine_inf.children(':nth-child(4)').text("Type: " + data.type);
         $machine_inf.children(':nth-child(5)').html('Starting position <b>' + data.start + '</b>');
         $machine_inf.children(':nth-child(6)').html('It takes <b>' + data.us + '</b> U');
         
@@ -155,11 +155,11 @@ function edit_machine(name, resp) {
 
     $($mach_form[1]).val(name);
 
-    $($mach_form[6]).val($($mach_inf[0]).text());
-    $($mach_form[9]).val($($mach_inf[1]).text());
+    $($mach_form[6]).val($($mach_inf[0]).text().slice(4));
+    $($mach_form[9]).val($($mach_inf[1]).text().slice(4));
 
-    $($mach_form[11]).children("[value='" + $($mach_inf[2]).text() + "']").attr("selected", "selected");
-    $($mach_form[13]).children("[value='" + $($mach_inf[3]).text() + "']").attr("selected", "selected");
+    $($mach_form[11]).children("[value='" + $($mach_inf[2]).text().slice(7) + "']").attr("selected", "selected");
+    $($mach_form[13]).children("[value='" + $($mach_inf[3]).text().slice(6) + "']").attr("selected", "selected");
 
     $($mach_form[17]).text($('.machine-paragraph.machine-notes').text());
 

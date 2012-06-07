@@ -78,12 +78,13 @@ function show_historical(rack_id, rack_name) {
         chart = new google.visualization.LineChart(document.getElementById('chart_container'));
         chart.draw(data_table, options);
         
-        $('#left-phase-container').slideUp('fast');
-        $('#right-phase-container').slideUp('fast', function() {
+        $('#add_button').slideUp('fast');
+        $('.phase').slideUp('fast', function() {
             $('#close_buton').slideDown(500);
             $('#chart_title').slideDown(500).text("Historical data for RACK " + rack_name);
             $('#chart_container').slideDown(600);
-            $('#ocupation_chart').slideDown(500);
+            $('#ocupation_title').slideDown(500).text("Actual ocupation for RACK " + rack_name);
+            $('#ocupation_chart').slideDown(600);
         });
         
     }, "json");
@@ -95,10 +96,11 @@ function show_historical(rack_id, rack_name) {
 function close_chart() {
     $('#chart_title').slideUp('fast');
     $('#close_buton').slideUp('fast');
+    $('#ocupation_title').slideUp('fast');
     $('#ocupation_chart').slideUp('fast');
     $('#chart_container').slideUp('fast', function() {
-        $('#left-phase-container').slideDown(400);
-        $('#right-phase-container').slideDown(500);
+        $('.phase').slideDown(400);
+        $('#add_button').slideDown(500);
     });
     
     if(chart !== undefined) {

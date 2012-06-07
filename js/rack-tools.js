@@ -3,15 +3,16 @@
  * This function changes the elements of RACK view back to "Non-editable" mode.
  * It also restores the previous values of the fields.
  */
-function cancel_rack_editing() {
+function cancel_rack_editing(rack_id) {
     
     if(typeof(Storage)!=="undefined") {
         
         $('#rac-iface').children("li").each(function(index) {
             $(this).text(sessionStorage.getItem("iface" + index));
+            sessionStorage.removeItem("iface" + index)
         });
         
-        sessionStorage.clear(); //Once restored, remove
+        
         
         //Next lines are just to remove some text from "editable mode", which is not necessary any more
         $('#rac-iface').children("input").remove();
@@ -33,12 +34,12 @@ function cancel_rack_editing() {
     
     $('#add_machine').text("Add machine");
     $('#add_machine').attr("name", "add");
-    $('#add_machine').attr("onclick", "alert('Not implemented yet!');");
+    $('#add_machine').attr("onclick", "add_new_machine('" + rack_id + "');");
     
     $('#rac-info').children("p").remove();
     $('#phases').remove();
     
-    $('#war-title').html('<p id="war-title">Común</p>');
+    $('#war-title').text("RACK name: " + $('input[name=rack-title]').val());
     
 }
 
@@ -46,7 +47,7 @@ function cancel_rack_editing() {
  * This function changes rack view to "editable mode". It stores a copy of 
  * current values, just in case the user decides to not commit changes.
  */
-function edit_rack() {
+function edit_rack(rack_id) {
 
     var index = 0;
     var ifaces = new Array();
@@ -54,13 +55,13 @@ function edit_rack() {
         ifaces[i] = $(this).text();
         
         //Add editable text field for each element in list
-        $(this).html('<input style="width: 35px;" type="number" value="' + ifaces[i].split(" -> ")[0] + '"' + 'size="3" />' + ' -> ' + '<input style="width: 45px;" type="number" value="' + ifaces[i].split(" -> ")[1] + '"' + 'size="4" />');
+        $(this).html('<input style="width: 30px;" type="number" value="' + ifaces[i].split(" -> ")[0] + '"' + 'size="2" mix="1" max="11"/>' + ' -> ' + '<input style="width: 85px;" type="text" value="' + ifaces[i].split(" -> ")[1] + '"' + 'size="16" />');
         
         index++;
     });
     
     while(index < 3) {
-        $('#rac-iface').append('<input style="width: 35px;" type="number" value="" size="3"  mix="1" max="11"/>' + ' -> ' + '<input style="width: 45px;" type="number" value="" size="4" mix="1" max="11"/><br/>');
+        $('#rac-iface').append('<input style="width: 30px;" type="number" value="" size="2"  mix="1" max="11"/>' + ' -> ' + '<input style="width: 85px;" type="text" value="" size="16" /><br/>');
         index++;
     }
     
@@ -68,7 +69,7 @@ function edit_rack() {
     var $edit_rack = $('#edit_rack');
     $edit_rack.text("Discard changes");
     $edit_rack.attr("name", "cancel");
-    $edit_rack.attr("onclick", "cancel_rack_editing();");
+    $edit_rack.attr("onclick", "cancel_rack_editing('" + rack_id + "');");
     
     var $add_machine = $('#add_machine');
     $add_machine.text("Save changes");
@@ -101,8 +102,7 @@ function edit_rack() {
     
     $('#rac-iface').after(phase_connection);
     
-    $('#war-title').html('<input type="text" value="' + $('#war-title').text() + '" name="rack-title" />');
-//    $('#war-title').after('<input type="text" value="' + $('#war-title').text() + '" name="rack-title" />');
+    $('#war-title').html('<label style="font-size: 18px;">RACK name:</label><input type="text" value="' + $('#war-title').text().slice(11) + '" name="rack-title" />');
 }
 
 
@@ -116,7 +116,7 @@ function commit_rack() {
     var pairs = new Array(3);
     var i = 0;
     //Burrarrum!
-    $('input[type=number]').each(function(index, dom) {
+     $('#rac-iface').find(':input').each(function(index, dom) {
         
         if(index % 2 == 0) {    //If it's even, iface
             pairs[i] = new Array(2);
@@ -132,7 +132,7 @@ function commit_rack() {
     for(i = 0; i < pairs.length; i++) {
         
         if(validate_input(pairs[i][0], pairs[i][1])) {
-            post_string = post_string.concat("&iface" + (i+1) + "=" + pairs[i][0], "&ip" + (i+1) + "=" + pairs[i][1]);
+            post_string = post_string.concat("&iface" + (i+1) + "=" + pairs[i][0], "&ip" + (i+1) + "=" + encodeURI(pairs[i][1]));
         } else {
             alert("Interface or subnet are not a valid input");
             return;
