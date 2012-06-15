@@ -4,6 +4,6 @@
     <?php if($_SESSION['user'] === "administrator"){ ?>
     <a href="https://163.117.142.145/pfc/consumption.php"><button class="medium button blue" name="consumption" type="button" value="Consumption">Consumption</button></a>
     <?php } ?>
-    <a href="https://163.117.142.145/pfc/static/User_Manual.pdf"><button class="medium button blue" name="usermanual" type="button" value="usermanual">User Manual</button></a>
+    <a href="https://163.117.142.145/pfc/static/User_Manual.pdf" target="_blank"><button class="medium button blue" name="usermanual" type="button" value="usermanual">User Manual</button></a>
     <a href="https://163.117.142.145/pfc/logic/logout.php"><button class="medium button blue" name="logout" type="button" value="Logout" onclick="logout()">Logout</button></a>
 </div>
